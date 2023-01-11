@@ -16,14 +16,14 @@ namespace Persistence.Migrations
                     Id = Guid.NewGuid(),
                     Content = "Sample content 1",
                     SubContent = "Sample subcontent 1",
-                    Status = Domain.Constants.Status.NotDefinded
+                    Status = Status.NotDefinded
                 },
                 new WorkTask
                 {
                     Id = Guid.NewGuid(),
                     Content = "Sample content 2",
                     SubContent = "Sample subcontent 2",
-                    Status = Domain.Constants.Status.NotDefinded
+                    Status = Status.NotDefinded
                 }
             };
 
