@@ -1,11 +1,15 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { router } from "./routes/routes";
+import ThemeProvider from './theme';
 
 function App() {
-  let temp = process.env.REACT_APP_API_URL;
+
   return (
     <>
-    <RouterProvider router={router} /></>
+     <ThemeProvider>
+    <RouterProvider router={router} />
+    </ThemeProvider>
+    </>
   );
 }
 
