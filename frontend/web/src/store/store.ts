@@ -1,10 +1,8 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import commonSlice from './common/CommonSlice';
-import userSlice from './user/UserSlice';
+import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
+import commonSlice from "./common/CommonSlice";
 
 export const store = configureStore({
   reducer: {
-    user: userSlice.reducer,
     common: commonSlice.reducer,
   },
 });

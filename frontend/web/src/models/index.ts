@@ -1,2 +1,1 @@
-export type { UserStore} from './UserStore'
-export type { CommonStore} from './CommonStore'
+export type { UserStore } from "./UserStore";
