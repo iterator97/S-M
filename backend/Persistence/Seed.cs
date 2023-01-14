@@ -1,6 +1,7 @@
 ﻿
 using Domain;
 using Domain.Identity;
+using Domain.Spaces;
 using Microsoft.AspNetCore.Identity;
 
 namespace Persistence
@@ -26,27 +27,89 @@ namespace Persistence
 
 
             // Work Task 
-            if (context.WorkTasks.Any()) return;
-
-            var workTasks = new List<WorkTask>
+            if (!context.WorkTasks.Any())
+            {
+                var workTasks = new List<WorkTask>
             {
                 new WorkTask
                 {
-                    Id = Guid.NewGuid(),
+                    Id = new Guid("cbd4e0e9-289b-4240-8228-9bcab8e0158b"),
                     Content = "Sample content 1",
                     SubContent = "Sample subcontent 1",
                     Status = Status.NotDefinded
                 },
                 new WorkTask
                 {
-                    Id = Guid.NewGuid(),
+                    Id = new Guid("a0d6fa6f-e5a1-4406-adf9-c73a86af5b92"),
                     Content = "Sample content 2",
                     SubContent = "Sample subcontent 2",
                     Status = Status.NotDefinded
                 }
             };
+                await context.WorkTasks.AddRangeAsync(workTasks);
+            }
 
-            await context.WorkTasks.AddRangeAsync(workTasks);
+            // Space 
+            if (!context.Spaces.Any())
+            {
+                var spaces = new List<Space>
+            {
+                new Space
+                {
+                    Id = new Guid("c22485d3-29d7-4840-a9f3-46ff46b7fefa"),
+                    Name = "Space 1",
+                },
+                new Space
+                {
+                    Id = new Guid("6251dc47-695d-442d-8b54-fd62a213edf4"),
+                    Name = "Space 2",
+                }
+            };
+                await context.Spaces.AddRangeAsync(spaces);
+            }
+
+            // SubSpaces 
+            if (!context.SubSpaces.Any())
+            {
+                var subSpaces = new List<SubSpace>
+            {
+                // Space 1
+                new SubSpace
+                {
+                    Id = new Guid("78fe18b7-20f7-4883-a35a-c0f2ccbfb910"),
+                    Name = "SubSpace 1",
+                    SpaceId= new Guid("c22485d3-29d7-4840-a9f3-46ff46b7fefa")
+                },
+                new SubSpace
+                {
+                    Id = new Guid("443104ee-b272-491b-826a-671d11078d77"),
+                    Name = "SubSpace 2",
+                    SpaceId= new Guid("c22485d3-29d7-4840-a9f3-46ff46b7fefa")
+                },
+
+                // Space 2
+                new SubSpace
+                {
+                    Id = new Guid("49e26afb-9f3a-4f26-aa95-a3b1155ba18d"),
+                    Name = "SubSpace 3",
+                    SpaceId= new Guid("6251dc47-695d-442d-8b54-fd62a213edf4")
+                },
+                new SubSpace
+                {
+                    Id = new Guid("6291ef15-277c-4ada-9187-4bc5e3e91ced"),
+                    Name = "SubSpace 4",
+                    SpaceId= new Guid("6251dc47-695d-442d-8b54-fd62a213edf4")
+                }
+
+            };
+                await context.SubSpaces.AddRangeAsync(subSpaces);
+            }
+
+
+
+
+
+
             await context.SaveChangesAsync();
         }
     }

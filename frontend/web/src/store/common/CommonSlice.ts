@@ -9,6 +9,7 @@ const initialState: CommonStore = {
   displayName: "",
   token: "",
   loading: false,
+  signedIn: false,
 };
 
 const commonSlice = createSlice({
@@ -31,6 +32,7 @@ const commonSlice = createSlice({
       state.email = payload.email;
       state.surname = payload.surname;
       state.token = payload.token;
+      state.signedIn = true;
 
       return state;
     });
@@ -42,6 +44,6 @@ const commonSlice = createSlice({
 });
 
 export const { clearState } = commonSlice.actions;
-export const userSelector = (state: any) => state.user;
+export const userSelector = (state: CommonStore) => state;
 
 export default commonSlice;

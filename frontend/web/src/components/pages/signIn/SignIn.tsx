@@ -1,19 +1,19 @@
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SignInData from "../../../models/user/SignInData";
 import { signInAction } from "../../../store/common/actions/singInAction";
 import { AppDispatch } from "../../../store/store";
 import { useState } from "react";
+import { useAppSelector } from "../../../store/hooks";
+import { useNavigate } from "react-router-dom";
 
 interface SingInProps {
   changeMode?: any;
@@ -23,14 +23,19 @@ const SignIn = (props: SingInProps) => {
   const dispatch = useDispatch<AppDispatch>();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const signedIn = useAppSelector((state) => state.common.signedIn);
+  let navigate = useNavigate();
 
   const onSignInClick = () => {
     let signInValues: SignInData = {
       email: email,
       password: password,
     };
-    console.log(signInValues);
-    dispatch(signInAction(signInValues));
+    dispatch(signInAction(signInValues)).then(() => {
+      if (signedIn) {
+        return navigate("/dashboard");
+      }
+    });
   };
 
   return (

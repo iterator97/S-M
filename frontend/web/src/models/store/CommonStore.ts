@@ -5,4 +5,5 @@ export default interface AppContainer {
   displayName?: string;
   token?: string;
   loading?: boolean;
+  signedIn?: boolean;
 }
