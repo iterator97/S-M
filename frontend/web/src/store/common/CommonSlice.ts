@@ -1,8 +1,8 @@
+import { ICommonSlice } from "./../../models";
 import { createSlice } from "@reduxjs/toolkit";
-import CommonStore from "../../models/store/CommonStore";
 import { signInAction } from "./actions/singInAction";
 
-const initialState: CommonStore = {
+const initialState: ICommonSlice = {
   email: "",
   name: "",
   surname: "",
@@ -44,6 +44,6 @@ const commonSlice = createSlice({
 });
 
 export const { clearState } = commonSlice.actions;
-export const userSelector = (state: CommonStore) => state;
+export const userSelector = (state: ICommonSlice) => state;
 
 export default commonSlice;

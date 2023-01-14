@@ -1,9 +1,11 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import commonSlice from "./common/CommonSlice";
+import spaceSlice from "./space/SpaceSlice";
 
 export const store = configureStore({
   reducer: {
     common: commonSlice.reducer,
+    space: spaceSlice.reducer,
   },
 });
 

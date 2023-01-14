@@ -1,28 +1,37 @@
-import PropTypes from 'prop-types';
-import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import PropTypes from "prop-types";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 // @mui
-import { styled, alpha } from '@mui/material/styles';
-import { Box, Link, Button, Drawer, Typography, Avatar, Stack } from '@mui/material';
+import { styled, alpha } from "@mui/material/styles";
+import {
+  Box,
+  Link,
+  Button,
+  Drawer,
+  Typography,
+  Avatar,
+  Stack,
+} from "@mui/material";
 // mock
-import account from '../../../_mock/account';
+import account from "../../../_mock/account";
 // hooks
 // components
 
 //
-import navConfig from './navConfig';
-import useResponsive from '../../../hooks/useResponsive';
-import NavSection from '../../molecules/nav-section';
-import Scrollbar from '../../molecules/scrollbar';
-import Logo from '../../molecules/logo';
+import navConfig from "./navConfig";
+import useResponsive from "../../../hooks/useResponsive";
+import NavSection from "../../molecules/nav-section";
+import Scrollbar from "../../molecules/scrollbar";
+import Logo from "../../molecules/logo";
+import { useAppSelector } from "../../../store/hooks";
 
 // ----------------------------------------------------------------------
 
 const NAV_WIDTH = 280;
 
-const StyledAccount = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
+const StyledAccount = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
   padding: theme.spacing(2, 2.5),
   borderRadius: Number(theme.shape.borderRadius) * 1.5,
   backgroundColor: alpha(theme.palette.grey[500], 0.12),
@@ -35,10 +44,9 @@ Nav.propTypes = {
   onCloseNav: PropTypes.func,
 };
 
-export default function Nav({ openNav, onCloseNav }:any) {
+export default function Nav({ openNav, onCloseNav }: any) {
   const { pathname } = useLocation();
-
-  const isDesktop = useResponsive('up', 'lg');
+  const spaces = useAppSelector((state) => state.space.spaces);
 
   useEffect(() => {
     if (openNav) {
@@ -51,36 +59,40 @@ export default function Nav({ openNav, onCloseNav }:any) {
     <Scrollbar
       sx={{
         height: 1,
-        '& .simplebar-content': { height: 1, display: 'flex', flexDirection: 'column' },
+        "& .simplebar-content": {
+          height: 1,
+          display: "flex",
+          flexDirection: "column",
+        },
       }}
     >
-      <Box sx={{ px: 2.5, py: 3, display: 'inline-flex' }}>
+      {/* Logo */}
+      <Box sx={{ px: 2.5, py: 3, display: "inline-flex" }}>
         <Logo />
       </Box>
 
+      {/* /User */}
       <Box sx={{ mb: 5, mx: 2.5 }}>
         <Link underline="none">
           <StyledAccount>
             <Avatar src={account.photoURL} alt="photoURL" />
 
             <Box sx={{ ml: 2 }}>
-              <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
+              <Typography variant="subtitle2" sx={{ color: "text.primary" }}>
                 {account.displayName}
               </Typography>
 
-              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-               {/* TODO */}
+              <Typography variant="body2" sx={{ color: "text.secondary" }}>
+                {/* TODO */}
                 {/* {account.role} */}
               </Typography>
             </Box>
           </StyledAccount>
         </Link>
       </Box>
-
-      <NavSection data={navConfig} />
-
+      {/* Items */}
+      <NavSection data={spaces} />
       <Box sx={{ flexGrow: 1 }} />
-
     </Scrollbar>
   );
 
@@ -92,34 +104,19 @@ export default function Nav({ openNav, onCloseNav }:any) {
         width: { lg: NAV_WIDTH },
       }}
     >
-      {isDesktop ? (
-        <Drawer
-          open
-          variant="permanent"
-          PaperProps={{
-            sx: {
-              width: NAV_WIDTH,
-              bgcolor: 'background.default',
-              borderRightStyle: 'dashed',
-            },
-          }}
-        >
-          {renderContent}
-        </Drawer>
-      ) : (
-        <Drawer
-          open={openNav}
-          onClose={onCloseNav}
-          ModalProps={{
-            keepMounted: true,
-          }}
-          PaperProps={{
-            sx: { width: NAV_WIDTH },
-          }}
-        >
-          {renderContent}
-        </Drawer>
-      )}
+      <Drawer
+        open
+        variant="permanent"
+        PaperProps={{
+          sx: {
+            width: NAV_WIDTH,
+            bgcolor: "background.default",
+            borderRightStyle: "dashed",
+          },
+        }}
+      >
+        {renderContent}
+      </Drawer>
     </Box>
   );
 }

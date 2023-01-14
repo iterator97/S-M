@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import Header from "../../organisms/header/Header";
 import Nav from "../../organisms/navbar/Navbar";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../store/store";
+import { getSpaces } from "../../../store/space/actions/getSpaces";
 
 const APP_BAR_MOBILE = 64;
 const APP_BAR_DESKTOP = 92;
@@ -27,7 +30,14 @@ const Main = styled("div")(({ theme }) => ({
 }));
 
 export default function DashboardLayout() {
+  const dispatch = useDispatch<AppDispatch>();
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    console.log("dupa");
+    let temp = localStorage.getItem("token");
+    dispatch(getSpaces(temp));
+  }, []);
 
   return (
     <StyledRoot>

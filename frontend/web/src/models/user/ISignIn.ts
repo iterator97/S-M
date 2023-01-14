@@ -1,4 +1,4 @@
-export default interface SignInData {
+export interface ISignIn {
   email?: string;
   password?: string;
 }

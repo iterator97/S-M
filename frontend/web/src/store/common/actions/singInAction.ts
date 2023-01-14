@@ -1,9 +1,9 @@
+import { ISignIn } from "./../../../models";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import SignInData from "../../../models/user/SignInData";
 
 export const signInAction = createAsyncThunk(
   "user/signIn",
-  async ({ email, password }: SignInData, thunkAPI) => {
+  async ({ email, password }: ISignIn, thunkAPI) => {
     console.log("action inside");
     try {
       const response = await fetch("http://localhost:44352/api/account/login", {

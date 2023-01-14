@@ -1,4 +1,4 @@
-export default interface AppContainer {
+export interface ICommonSlice {
   email?: string;
   name?: string;
   surname?: string;

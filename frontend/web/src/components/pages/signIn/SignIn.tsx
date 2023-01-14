@@ -8,12 +8,12 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { useDispatch, useSelector } from "react-redux";
-import SignInData from "../../../models/user/SignInData";
 import { signInAction } from "../../../store/common/actions/singInAction";
 import { AppDispatch } from "../../../store/store";
 import { useState } from "react";
 import { useAppSelector } from "../../../store/hooks";
 import { useNavigate } from "react-router-dom";
+import { ISignIn } from "../../../models";
 
 interface SingInProps {
   changeMode?: any;
@@ -27,7 +27,7 @@ const SignIn = (props: SingInProps) => {
   let navigate = useNavigate();
 
   const onSignInClick = () => {
-    let signInValues: SignInData = {
+    let signInValues: ISignIn = {
       email: email,
       password: password,
     };
