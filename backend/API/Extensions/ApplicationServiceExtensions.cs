@@ -3,6 +3,8 @@ using Persistence;
 using MediatR;
 using Application.WorkTasks;
 using Application.Core;
+using Application.Interfaces;
+using Infrastructure.Security;
 
 namespace API.Extensions
 {
@@ -30,6 +32,8 @@ namespace API.Extensions
 
             services.AddMediatR(typeof(List.Query));
             services.AddAutoMapper(typeof(MappingProfiles));
+            services.AddHttpContextAccessor();
+            services.AddScoped<IUserAccessor, UserAccessor>();
 
             return services;
         }
