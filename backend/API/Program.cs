@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 using API.Extensions;
-using Domain.Identity;
+using Domain;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;

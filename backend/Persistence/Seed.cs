@@ -1,7 +1,5 @@
 ﻿
 using Domain;
-using Domain.Identity;
-using Domain.Spaces;
 using Microsoft.AspNetCore.Identity;
 
 namespace Persistence
@@ -10,15 +8,15 @@ namespace Persistence
     {
         public static async Task SeedData(DataContext context, UserManager<AppUser> userManager)
         {
-            if (!userManager.Users.Any())
-            {
-                var users = new List<AppUser>
+            var users = new List<AppUser>
                 {
-                    new AppUser{Surname = "Bob", UserName = "bob", Email = "bob@test.com"},
-                    new AppUser{Surname = "Tom", UserName = "tom", Email = "tom@test.com"},
-                    new AppUser{Surname = "Jane", UserName = "jane", Email = "jane@test.com"},
+                    new AppUser{Id= "2759ca58-5b55-4ba2-bd05-47999bdb2b21", Surname = "Bob", UserName = "bob", Email = "bob@test.com"},
+                    new AppUser{Id= "d140ae51-a6ca-450f-9edc-502e16a37523", Surname = "Tom", UserName = "tom", Email = "tom@test.com"},
+                    new AppUser{Id= "88d0863e-313a-4a35-82b1-278f1700fa36", Surname = "Jane", UserName = "jane", Email = "jane@test.com"},
                 };
 
+            if (!userManager.Users.Any())
+            {
                 foreach (var user in users)
                 {
                     await userManager.CreateAsync(user, "Pa$$w0rd");
@@ -58,11 +56,41 @@ namespace Persistence
                 {
                     Id = new Guid("c22485d3-29d7-4840-a9f3-46ff46b7fefa"),
                     Name = "Space 1",
+                    Attendees = new List<SpaceAttendee>
+                    {
+                        new SpaceAttendee
+                        {
+                            AppUser = users[0],
+                            SpaceId = new Guid("c22485d3-29d7-4840-a9f3-46ff46b7fefa"),
+                            IsOwner= true,
+                        },
+                        new SpaceAttendee
+                        {
+                            AppUser = users[1],
+                            SpaceId = new Guid("c22485d3-29d7-4840-a9f3-46ff46b7fefa"),
+                            IsOwner= false,
+                        }
+                    }
                 },
                 new Space
                 {
                     Id = new Guid("6251dc47-695d-442d-8b54-fd62a213edf4"),
                     Name = "Space 2",
+                    Attendees = new List<SpaceAttendee>
+                    {
+                        new SpaceAttendee
+                        {
+                            AppUser = users[0],
+                            SpaceId = new Guid("6251dc47-695d-442d-8b54-fd62a213edf4"),
+                            IsOwner= true,
+                        },
+                        new SpaceAttendee
+                        {
+                            AppUser = users[1],
+                            SpaceId = new Guid("6251dc47-695d-442d-8b54-fd62a213edf4"),
+                            IsOwner= false,
+                        }
+                    }
                 }
             };
                 await context.Spaces.AddRangeAsync(spaces);
@@ -104,11 +132,6 @@ namespace Persistence
             };
                 await context.SubSpaces.AddRangeAsync(subSpaces);
             }
-
-
-
-
-
 
             await context.SaveChangesAsync();
         }

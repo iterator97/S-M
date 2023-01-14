@@ -1,6 +1,4 @@
 ﻿using Domain;
-using Domain.Identity;
-using Domain.Spaces;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,11 +11,11 @@ public class DataContext : IdentityDbContext<AppUser>
 
     }
 
+    public DbSet<Space> Spaces { get; set; }
+    public DbSet<SubSpace> SubSpaces { get; set; }
     public DbSet<WorkTask> WorkTasks { get; set; }
     public DbSet<SubTask> SubTasks { get; set; }
     public DbSet<AppUser> AppUsers { get; set; }
-    public DbSet<Space> Spaces { get; set; }
-    public DbSet<SubSpace> SubSpaces { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -28,5 +26,21 @@ public class DataContext : IdentityDbContext<AppUser>
             .HasOne(a => a.Space)
                 .WithMany(b => b.SubSpaces)
                     .HasForeignKey(c => c.SpaceId);
+
+        // START Space + AppUser => Many to Many
+        builder.Entity<SpaceAttendee>
+            (x => x.HasKey(aa => new { aa.AppUserId, aa.SpaceId }));
+
+        builder.Entity<SpaceAttendee>()
+            .HasOne(u => u.AppUser)
+                .WithMany(a => a.Spaces)
+                    .HasForeignKey(aa => aa.AppUserId);
+
+        builder.Entity<SpaceAttendee>().
+             HasOne(u => u.Space).
+                WithMany(a => a.Attendees)
+                    .HasForeignKey(aa => aa.SpaceId);
+
+        // END Space + AppUser => Many to Many
     }
 }

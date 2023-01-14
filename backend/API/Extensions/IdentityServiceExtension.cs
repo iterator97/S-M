@@ -1,5 +1,5 @@
 ﻿using API.Services;
-using Domain.Identity;
+using Domain;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
