@@ -4,7 +4,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 export const signInAction = createAsyncThunk(
   "user/signIn",
   async ({ email, password }: ISignIn, thunkAPI) => {
-    console.log("action inside");
     try {
       const response = await fetch("http://localhost:44352/api/account/login", {
         method: "POST",

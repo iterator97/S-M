@@ -1,37 +1,36 @@
 import PropTypes from "prop-types";
 import { NavLink as RouterLink } from "react-router-dom";
-// @mui
 import { Box, List, ListItemText } from "@mui/material";
-//
 import { StyledNavItem, StyledNavItemIcon } from "./styles";
-
-// ----------------------------------------------------------------------
+import LabelIcon from "@mui/icons-material/Label";
 
 export default function NavSection(props: any) {
-  console.log("props");
-
-  console.log(props);
-
+  let arr = props.data;
   return (
-    <Box>
-      <List disablePadding sx={{ p: 1 }}>
-        {props.data.map((item: any) => (
-          <NavItem key={item.id} item={item} />
-        ))}
-      </List>
-    </Box>
+    <>
+      {arr ? (
+        <>
+          {" "}
+          <Box>
+            <List disablePadding sx={{ p: 1 }}>
+              {props.data.map((item: any) => (
+                <NavItem key={item.id} item={item} />
+              ))}
+            </List>
+          </Box>
+        </>
+      ) : (
+        <div>Problems while getting data</div>
+      )}
+    </>
   );
 }
-
-// ----------------------------------------------------------------------
 
 NavItem.propTypes = {
   item: PropTypes.object,
 };
 
 function NavItem({ item }: any) {
-  console.log(item);
-
   return (
     <StyledNavItem
       component={RouterLink}
@@ -44,9 +43,11 @@ function NavItem({ item }: any) {
         },
       }}
     >
-      <ListItemText disableTypography primary={item.nam}>
-        {item.name}
-      </ListItemText>
+      <StyledNavItemIcon>
+        <LabelIcon />
+      </StyledNavItemIcon>
+
+      <ListItemText disableTypography primary={item.name} />
     </StyledNavItem>
   );
 }

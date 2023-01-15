@@ -11,6 +11,8 @@ namespace Application.WorkTasks
         public class Query : IRequest<List<WorkTask>>
         {
 
+            public string SubSpaceId { get; set; }
+
             public class Handler : IRequestHandler<Query, List<WorkTask>>
             {
                 private readonly DataContext _context;

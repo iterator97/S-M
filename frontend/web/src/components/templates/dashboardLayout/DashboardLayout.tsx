@@ -34,7 +34,6 @@ export default function DashboardLayout() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    console.log("dupa");
     let temp = localStorage.getItem("token");
     dispatch(getSpaces(temp));
   }, []);

@@ -8,7 +8,7 @@ namespace API.Controllers
     public class WorkTaskController : BaseApiController
     {
         [HttpGet]
-        public async Task<ActionResult<List<WorkTask>>> GetWorkTasksByUser()
+        public async Task<ActionResult<List<WorkTask>>> GetWorkTaskBySubSPace(string SubSpaceId)
         {
             return await Mediator.Send(new List.Query());
         }
@@ -29,7 +29,7 @@ namespace API.Controllers
         public async Task<IActionResult> EditWorkTask(Guid id, WorkTask workTask)
         {
             workTask.Id = id;
-            return Ok(await Mediator.Send(new Edit.Command { workTask = workTask}));
+            return Ok(await Mediator.Send(new Edit.Command { workTask = workTask }));
         }
 
         [HttpDelete("{id}")]

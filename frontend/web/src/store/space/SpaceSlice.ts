@@ -20,10 +20,6 @@ const spaceSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(getSpaces.fulfilled, (state, { payload }) => {
-      console.log("payload");
-
-      console.log(payload);
-
       state.loading = false;
       state.spaces = payload;
 
