@@ -11,5 +11,9 @@ namespace Domain
         public string SubContent { get; set; }
 
         public Status Status { get; set; } = Status.NotDefinded;
+
+        public Guid SubSpaceId { get; set; }
+
+        public SubSpace SubSpace { get; set; }
     }
 }

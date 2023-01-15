@@ -8,6 +8,7 @@
         public Guid SpaceId { get; set; }
         public Space Space { get; set; }
 
+        public ICollection<WorkTask> SubSpaceTasks { get; set; } = new List<WorkTask>();
     }
 }
 

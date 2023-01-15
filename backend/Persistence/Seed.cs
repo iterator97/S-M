@@ -23,30 +23,6 @@ namespace Persistence
                 }
             }
 
-
-            // Work Task 
-            if (!context.WorkTasks.Any())
-            {
-                var workTasks = new List<WorkTask>
-            {
-                new WorkTask
-                {
-                    Id = new Guid("cbd4e0e9-289b-4240-8228-9bcab8e0158b"),
-                    Content = "Sample content 1",
-                    SubContent = "Sample subcontent 1",
-                    Status = Status.NotDefinded
-                },
-                new WorkTask
-                {
-                    Id = new Guid("a0d6fa6f-e5a1-4406-adf9-c73a86af5b92"),
-                    Content = "Sample content 2",
-                    SubContent = "Sample subcontent 2",
-                    Status = Status.NotDefinded
-                }
-            };
-                await context.WorkTasks.AddRangeAsync(workTasks);
-            }
-
             // Space 
             if (!context.Spaces.Any())
             {
@@ -131,6 +107,31 @@ namespace Persistence
 
             };
                 await context.SubSpaces.AddRangeAsync(subSpaces);
+            }
+
+            // Work Task 
+            if (!context.WorkTasks.Any())
+            {
+                var workTasks = new List<WorkTask>
+            {
+                new WorkTask
+                {
+                    Id = new Guid("cbd4e0e9-289b-4240-8228-9bcab8e0158b"),
+                    Content = "Sample content 1",
+                    SubContent = "Sample subcontent 1",
+                    Status = Status.NotDefinded,
+                    SubSpaceId= new Guid("78fe18b7-20f7-4883-a35a-c0f2ccbfb910")
+                },
+                new WorkTask
+                {
+                    Id = new Guid("a0d6fa6f-e5a1-4406-adf9-c73a86af5b92"),
+                    Content = "Sample content 2",
+                    SubContent = "Sample subcontent 2",
+                    Status = Status.NotDefinded,
+                    SubSpaceId= new Guid("78fe18b7-20f7-4883-a35a-c0f2ccbfb910")
+                }
+            };
+                await context.WorkTasks.AddRangeAsync(workTasks);
             }
 
             await context.SaveChangesAsync();

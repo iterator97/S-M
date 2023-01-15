@@ -42,5 +42,15 @@ public class DataContext : IdentityDbContext<AppUser>
                     .HasForeignKey(aa => aa.SpaceId);
 
         // END Space + AppUser => Many to Many
+
+
+        // START SubSpace + WorkTask => One to many
+        builder.Entity<WorkTask>()
+            .HasOne(a => a.SubSpace)
+                .WithMany(b => b.SubSpaceTasks)
+                    .HasForeignKey(b => b.SubSpaceId);
+
+        // END SubSpace + WorkTask => One to many
+
     }
 }

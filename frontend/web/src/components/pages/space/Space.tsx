@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import { useEffect } from "react";
+import { TasksColumn } from "../../organisms";
 
 const Space = (props: any) => {
   useEffect(() => {
@@ -20,14 +21,17 @@ const Space = (props: any) => {
       }}
     >
       <Grid container spacing={2}>
-        <Grid item xs={4}>
-          1
+        <Grid item xs={3}>
+          <TasksColumn status={0} />
         </Grid>
-        <Grid item xs={4}>
-          2
+        <Grid item xs={3}>
+          <TasksColumn status={1} />
         </Grid>
-        <Grid item xs={4}>
-          3
+        <Grid item xs={3}>
+          <TasksColumn status={2} />
+        </Grid>
+        <Grid item xs={3}>
+          <TasksColumn status={3} />
         </Grid>
       </Grid>
     </Box>

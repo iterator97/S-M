@@ -27,15 +27,17 @@ namespace Application.Core
                 .ForMember(a => a.Surname, b => b.MapFrom(c => c.Surname))
                 .ForMember(a => a.Email, b => b.MapFrom(c => c.Email));
 
-            CreateMap<SubSpace, SubSpaceProfile>()
-                 .ForMember(x => x.Id, p => p.MapFrom(o => o.Id))
-                 .ForMember(x => x.Name, p => p.MapFrom(o => o.Name));
-
             CreateMap<Space, SpaceProfile>()
                 .ForMember(d => d.OwnerId, o => o.MapFrom(s => s.Attendees.FirstOrDefault(x => x.IsOwner).AppUser.Id))
                 .ForMember(d => d.OwnerName, o => o.MapFrom(s => s.Attendees.FirstOrDefault(x => x.IsOwner).AppUser.Name))
                 .ForMember(d => d.OwnerSurname, o => o.MapFrom(s => s.Attendees.FirstOrDefault(x => x.IsOwner).AppUser.Surname))
                 .ForMember(d => d.Attendes, d => d.MapFrom(s => s.Attendees));
+
+            CreateMap<WorkTask, WorkTaskProfile>()
+                .ForMember(a => a.Id, b => b.MapFrom(c => c.Id))
+                .ForMember(a => a.Content, b => b.MapFrom(c => c.Content))
+                .ForMember(a => a.SubContent, b => b.MapFrom(c => c.SubContent))
+                .ForMember(a => a.Status, b => b.MapFrom(c => c.Status));
 
         }
     }
