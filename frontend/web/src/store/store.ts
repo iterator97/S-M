@@ -1,11 +1,13 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import commonSlice from "./common/CommonSlice";
 import spaceSlice from "./space/SpaceSlice";
+import workTaskSlice from "./workTask/WorkTaskSlice";
 
 export const store = configureStore({
   reducer: {
     common: commonSlice.reducer,
     space: spaceSlice.reducer,
+    workTask: workTaskSlice.reducer,
   },
 });
 

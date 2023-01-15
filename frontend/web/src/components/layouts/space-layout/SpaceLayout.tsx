@@ -49,8 +49,6 @@ export default function SpaceLayout() {
     state.space.spaces?.filter((space) => space.id != params.id)
   );
 
-  console.log(spaces);
-
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };

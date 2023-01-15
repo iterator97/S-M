@@ -3,8 +3,8 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
-import SignIn from "../../pages/signIn/SignIn";
-import SignUp from "../../pages/signUp/SignUp";
+import SignIn from "../../pages/sign-in/SignIn";
+import SignUp from "../../pages/sign-up/SignUp";
 
 const theme = createTheme();
 

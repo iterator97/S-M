@@ -39,6 +39,13 @@ namespace Application.Core
                 .ForMember(a => a.SubContent, b => b.MapFrom(c => c.SubContent))
                 .ForMember(a => a.Status, b => b.MapFrom(c => c.Status));
 
+            CreateMap<SubSpace, SubSpaceProfile>()
+                 .ForMember(x => x.Id, p => p.MapFrom(o => o.Id))
+                 .ForMember(x => x.Name, p => p.MapFrom(o => o.Name));
+
+
+
+
         }
     }
 }

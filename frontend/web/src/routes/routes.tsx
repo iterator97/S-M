@@ -1,7 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
-import SpaceLayout from "../components/templates/spaceLayout/Space";
-import DashboardLayout from "../components/templates/dashboardLayout/DashboardLayout";
-import InitialLayout from "../components/templates/initialLayout/InitialLayout";
+import {
+  DashboardLayout,
+  InitialLayout,
+  SpaceLayout,
+} from "../components/layouts";
 
 export const router = createBrowserRouter([
   {
@@ -11,9 +13,6 @@ export const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <DashboardLayout />,
-    children: [
-      { path: "space/:id", element: <SpaceLayout /> },
-      { path: "user", element: <DashboardLayout /> },
-    ],
+    children: [{ path: "space/:id", element: <SpaceLayout /> }],
   },
 ]);

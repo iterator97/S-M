@@ -1,4 +1,4 @@
-﻿using Application.SubSpace;
+﻿using Application.SubSpaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers

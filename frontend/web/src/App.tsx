@@ -1,14 +1,13 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
 import { router } from "./routes/routes";
-import ThemeProvider from './theme';
+import ThemeProvider from "./theme";
 
 function App() {
-
   return (
     <>
-     <ThemeProvider>
-    <RouterProvider router={router} />
-    </ThemeProvider>
+      <ThemeProvider>
+        <RouterProvider router={router} />
+      </ThemeProvider>
     </>
   );
 }

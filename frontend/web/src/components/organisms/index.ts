@@ -1,1 +1,1 @@
-export { default as TasksColumn } from "./tasksColumn/TasksColumn";
+export { default as TasksColumn } from "./tasks-list/TaskList";
