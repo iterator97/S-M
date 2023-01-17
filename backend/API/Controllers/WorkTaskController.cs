@@ -23,17 +23,17 @@ namespace API.Controllers
             return HandleResult(await Mediator.Send(new Create.Command { WorkTask = workTask }));
         }
 
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> RemoveWorkTask(Guid id)
+        {
+            return HandleResult(await Mediator.Send(new Delete.Command { Id = id }));
+        }
+
         //[HttpPut("{id}")]
         //public async Task<IActionResult> EditWorkTask(Guid id, WorkTask workTask)
         //{
         //    workTask.Id = id;
         //    return Ok(await Mediator.Send(new Edit.Command { workTask = workTask }));
-        //}
-
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> RemoveWorkTask(Guid id)
-        //{
-        //    return HandleResult(await Mediator.Send(new Delete.Command { Id = id }));
         //}
 
         //[HttpPost]

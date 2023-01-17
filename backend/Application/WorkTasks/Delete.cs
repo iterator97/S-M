@@ -28,6 +28,18 @@ namespace Application.WorkTasks
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
+                var subTasks = _context.SubTasks;
+
+                foreach (var item in subTasks)
+                {
+                    if (item.WorkTaskId == request.Id)
+                    {
+                        _context.SubTasks.Remove(item);
+                    }
+                }
+
+                var res = await _context.SaveChangesAsync() > 0;
+
                 var workTask = await _context.WorkTasks.FindAsync(request.Id, cancellationToken);
 
                 if (workTask == null)
