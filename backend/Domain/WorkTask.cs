@@ -18,5 +18,17 @@ namespace Domain
 
         public ICollection<WorkTaskDependency> WorkTaskDependencyList { get; set; } = new List<WorkTaskDependency>();
 
+        public string AssignWorkerId { get; set; }
+
+        public AppUser AssignWorker { get; set; }
+
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
+
+        public DateTime? EndDate { get; set; }
+
+        public bool IsDoneOnTime { get; set; }
+
+        public ICollection<SubTask> SubTasks { get; set; } = new List<SubTask>();
+
     }
 }

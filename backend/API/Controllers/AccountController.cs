@@ -1,5 +1,5 @@
-﻿using API.DTO;
-using API.Services;
+﻿using API.Services;
+using Application.DTO;
 using Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;

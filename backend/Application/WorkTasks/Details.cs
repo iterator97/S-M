@@ -1,13 +1,7 @@
 ﻿using Application.Core;
-using Azure.Core;
 using Domain;
 using MediatR;
 using Persistence;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.WorkTasks
 {
@@ -29,6 +23,8 @@ namespace Application.WorkTasks
             public async Task<Result<WorkTask>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var activity = await _context.WorkTasks.FindAsync(request.Id);
+
+                if (activity == null) { return null; }
 
                 return Result<WorkTask>.Success(activity);
 

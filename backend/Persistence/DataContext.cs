@@ -43,16 +43,12 @@ public class DataContext : IdentityDbContext<AppUser>
                 WithMany(a => a.Attendees)
                     .HasForeignKey(aa => aa.SpaceId);
 
-        // END Space + AppUser => Many to Many
-
-
         // START SubSpace + WorkTask => One to many
         builder.Entity<WorkTask>()
             .HasOne(a => a.SubSpace)
                 .WithMany(b => b.SubSpaceTasks)
                     .HasForeignKey(b => b.SubSpaceId);
 
-        // END SubSpace + WorkTask => One to many
 
         // START WorkTask + WorkTaskDependenc => One to many
         builder.Entity<WorkTaskDependency>()
@@ -60,7 +56,17 @@ public class DataContext : IdentityDbContext<AppUser>
                 .WithMany(b => b.WorkTaskDependencyList)
                     .HasForeignKey(b => b.WorkTaskId);
 
-        // END SubSpace + WorkTask => One to many
+
+        // START WorkTask + SubTask => One to many
+        builder.Entity<SubTask>()
+            .HasOne(a => a.WorkTask)
+                .WithMany(b => b.SubTasks)
+                    .HasForeignKey(b => b.WorkTaskId);
+
+        builder.Entity<WorkTask>()
+            .HasOne(p => p.AssignWorker)
+                .WithMany(b => b.AssignedTasks)
+                    .HasForeignKey(b => b.AssignWorkerId);
 
     }
 }

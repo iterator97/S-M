@@ -1,4 +1,4 @@
-﻿namespace API.DTO
+﻿namespace Application.DTO
 {
     public class DependencyDto
     {
