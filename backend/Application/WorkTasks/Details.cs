@@ -13,12 +13,12 @@ namespace Application.WorkTasks
 {
     public class Details
     {
-        public class Query : IRequest<WorkTask>
+        public class Query : IRequest<Result<WorkTask>>
         {
             public Guid Id { get; set; }
         }
 
-        public class Handler : IRequestHandler<Query, WorkTask>
+        public class Handler : IRequestHandler<Query, Result<WorkTask>>
         {
             private readonly DataContext _context;
             public Handler(DataContext context)
@@ -26,11 +26,12 @@ namespace Application.WorkTasks
                 _context = context;
             }
 
-            public async Task<WorkTask> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Result<WorkTask>> Handle(Query request, CancellationToken cancellationToken)
             {
-                return await _context.WorkTasks.FindAsync(request.Id);
+                var activity = await _context.WorkTasks.FindAsync(request.Id);
 
-               
+                return Result<WorkTask>.Success(activity);
+
             }
         }
     }

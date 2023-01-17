@@ -7,14 +7,13 @@ import { useAppSelector } from "../../../store/hooks";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../store/store";
 import { getSubSpaceWorkTasks } from "../../../store/workTask/actions/getSubSpaceWorkTasks";
+import { Container } from "@mui/material";
 
 const Space = (props: any) => {
   const dispatch = useDispatch<AppDispatch>();
   const workTask = useAppSelector((state) => state.workTask);
 
   useEffect(() => {
-    // Get data by props.id
-    // console.log("SPACE SPACE mounted get");
     dispatch(getSubSpaceWorkTasks(props.id));
   }, [props.id]);
 
@@ -27,7 +26,7 @@ const Space = (props: any) => {
         },
       }}
     >
-      <div>
+      <Container>
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <TasksColumn status={0} />
@@ -42,7 +41,7 @@ const Space = (props: any) => {
             <TasksColumn status={3} />
           </Grid>
         </Grid>
-      </div>
+      </Container>
     </Box>
   );
 };

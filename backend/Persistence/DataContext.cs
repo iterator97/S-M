@@ -16,6 +16,8 @@ public class DataContext : IdentityDbContext<AppUser>
     public DbSet<WorkTask> WorkTasks { get; set; }
     public DbSet<SubTask> SubTasks { get; set; }
     public DbSet<AppUser> AppUsers { get; set; }
+    public DbSet<WorkTaskDependency> WorkTaskDependencies { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -49,6 +51,14 @@ public class DataContext : IdentityDbContext<AppUser>
             .HasOne(a => a.SubSpace)
                 .WithMany(b => b.SubSpaceTasks)
                     .HasForeignKey(b => b.SubSpaceId);
+
+        // END SubSpace + WorkTask => One to many
+
+        // START WorkTask + WorkTaskDependenc => One to many
+        builder.Entity<WorkTaskDependency>()
+            .HasOne(a => a.WorkTask)
+                .WithMany(b => b.WorkTaskDependencyList)
+                    .HasForeignKey(b => b.WorkTaskId);
 
         // END SubSpace + WorkTask => One to many
 

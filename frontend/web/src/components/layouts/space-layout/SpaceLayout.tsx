@@ -7,6 +7,7 @@ import { useAppSelector } from "../../../store/hooks";
 import { useParams } from "react-router-dom";
 import { iteratorSymbol } from "immer/dist/internal";
 import Space from "../../pages/space/Space";
+import { Container } from "@mui/material";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -18,7 +19,7 @@ function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
 
   return (
-    <div
+    <Box
       role="tabpanel"
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
@@ -30,7 +31,7 @@ function TabPanel(props: TabPanelProps) {
           <Typography>{children}</Typography>
         </Box>
       )}
-    </div>
+    </Box>
   );
 }
 
@@ -70,7 +71,11 @@ export default function SpaceLayout() {
         </Tabs>
       </Box>
       <TabPanel value={value} index={value}>
-        {spaces ? <Space id={spaces[0].subSpaces[value].id} /> : <>Err</>}
+        {spaces ? (
+          <Space id={spaces[0].subSpaces[value].id} />
+        ) : (
+          <Container>Err</Container>
+        )}
       </TabPanel>
     </Box>
   );

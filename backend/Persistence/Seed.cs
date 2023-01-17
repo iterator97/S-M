@@ -120,7 +120,7 @@ namespace Persistence
                     Content = "Sample content 1",
                     SubContent = "Sample subcontent 1",
                     Status = Status.NotDefinded,
-                    SubSpaceId= new Guid("78fe18b7-20f7-4883-a35a-c0f2ccbfb910")
+                    SubSpaceId= new Guid("78fe18b7-20f7-4883-a35a-c0f2ccbfb910"),
                 },
                 new WorkTask
                 {
@@ -128,7 +128,14 @@ namespace Persistence
                     Content = "Sample content 2",
                     SubContent = "Sample subcontent 2",
                     Status = Status.NotDefinded,
-                    SubSpaceId= new Guid("78fe18b7-20f7-4883-a35a-c0f2ccbfb910")
+                    SubSpaceId= new Guid("78fe18b7-20f7-4883-a35a-c0f2ccbfb910"),
+                    WorkTaskDependencyList= new List<WorkTaskDependency> {
+                        new WorkTaskDependency
+                        {
+                            Id = new Guid(),
+                            DependencyId = "cbd4e0e9-289b-4240-8228-9bcab8e0158b"
+                        }
+                    }
                 }
             };
                 await context.WorkTasks.AddRangeAsync(workTasks);

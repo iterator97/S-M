@@ -15,5 +15,8 @@ namespace Domain
         public Guid SubSpaceId { get; set; }
 
         public SubSpace SubSpace { get; set; }
+
+        public ICollection<WorkTaskDependency> WorkTaskDependencyList { get; set; } = new List<WorkTaskDependency>();
+
     }
 }

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Core
+namespace Application.Profiles
 {
     public class WorkTaskProfile
     {

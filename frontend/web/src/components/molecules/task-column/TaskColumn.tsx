@@ -1,40 +1,52 @@
-import { Box, Container } from "@mui/material";
 import React from "react";
-import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import Divider from "@mui/material/Divider";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
+import Popover from "@mui/material/Popover";
+import { WorkTaskPopover } from "../../atoms";
 
 interface TaskProps {
   data?: any;
+  modal?: boolean;
+  setModal?: any;
 }
 const TaskColumn = (props: TaskProps) => {
   return (
-    <div>1</div>
-    // <ListItem alignItems="flex-start">
-    //   <ListItemAvatar>
-    //     <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-    //   </ListItemAvatar>
-    //   <ListItemText
-    //     primary="Brunch this weekend?"
-    //     secondary={
-    //       <React.Fragment>
-    //         <Typography
-    //           sx={{ display: "inline" }}
-    //           component="span"
-    //           variant="body2"
-    //           color="text.primary"
-    //         >
-    //           Ali Connors
-    //         </Typography>
-    //         {" — I'll be in your neighborhood doing errands this…"}
-    //       </React.Fragment>
-    //     }
-    //   />
-    // </ListItem>
+    <ListItem alignItems="flex-start">
+      <ListItemAvatar>
+        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+      </ListItemAvatar>
+      <ListItemText
+        primary={props.data.content}
+        secondary={
+          <React.Fragment>
+            <Typography
+              sx={{ display: "inline" }}
+              component="span"
+              variant="body2"
+              color="text.primary"
+            >
+              {props.data.subContent}
+            </Typography>
+          </React.Fragment>
+        }
+      />
+      <Popover
+        open={true}
+        anchorOrigin={{
+          vertical: "center",
+          horizontal: "center",
+        }}
+      >
+        <WorkTaskPopover
+          workTask={props.data}
+          modal={props.modal}
+          setModal={props.setModal}
+        />
+      </Popover>
+    </ListItem>
   );
 };
 

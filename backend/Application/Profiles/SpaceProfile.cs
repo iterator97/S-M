@@ -13,5 +13,9 @@ namespace Application.Profiles
         public string OwnerId { get; set; }
         public string OwnerName { get; set; }
         public string OwnerSurname { get; set; }
+        public string OwnerEmail { get; set; }
+
+        public ICollection<AppUserProfile> Attendes { get; set; }
+        public ICollection<SubSpaceProfile> SubSpaces { get; set; }
     }
 }

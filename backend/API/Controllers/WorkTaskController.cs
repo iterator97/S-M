@@ -1,4 +1,5 @@
-﻿using Application.WorkTasks;
+﻿using API.DTO;
+using Application.WorkTasks;
 using Domain;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -14,15 +15,15 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<WorkTask>> GetWorkTaskById(Guid id)
+        public async Task<IActionResult> GetWorkTaskById(Guid id)
         {
-            return await Mediator.Send(new Details.Query { Id = id });
+            return HandleResult(await Mediator.Send(new Details.Query { Id = id }));
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateWorkTask(WorkTask workTask)
+        public async Task<IActionResult> CreateWorkTask(WorkTask workTask)
         {
-            return Ok(await Mediator.Send(new Create.Command { workTask = workTask }));
+            return HandleResult(await Mediator.Send(new Create.Command { workTask = workTask }));
         }
 
         [HttpPut("{id}")]
@@ -35,7 +36,13 @@ namespace API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveWorkTask(Guid id)
         {
-            return Ok(await Mediator.Send(new Delete.Command { Id = id }));
+            return HandleResult(await Mediator.Send(new Delete.Command { Id = id }));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddDependency(DependencyDto dependencyDto)
+        {
+            return Ok(await Mediator.Send(new Dependency.Command { Dependencies = dependencyDto.Dependencies, WorkTaskId = dependencyDto.WorkTaskId }));
         }
 
     }
