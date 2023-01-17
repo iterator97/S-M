@@ -29,17 +29,17 @@ namespace API.Controllers
             return HandleResult(await Mediator.Send(new Delete.Command { Id = id }));
         }
 
+        [HttpPost]
+        public async Task<IActionResult> AddDependency(DependencyDto dependencyDto)
+        {
+            return HandleResult(await Mediator.Send(new Dependency.Command { WorkTaskId = dependencyDto.WorkTaskId, Dependencies = dependencyDto.Dependencies }));
+        }
+
         //[HttpPut("{id}")]
         //public async Task<IActionResult> EditWorkTask(Guid id, WorkTask workTask)
         //{
         //    workTask.Id = id;
         //    return Ok(await Mediator.Send(new Edit.Command { workTask = workTask }));
-        //}
-
-        //[HttpPost]
-        //public async Task<IActionResult> AddDependency(DependencyDto dependencyDto)
-        //{
-        //    return Ok(await Mediator.Send(new Dependency.Command { Dependencies = dependencyDto.Dependencies, WorkTaskId = dependencyDto.WorkTaskId }));
         //}
 
         //[HttpGet]
