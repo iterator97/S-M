@@ -34,7 +34,7 @@ const TaskColumn = (props: TaskProps) => {
         }
       />
       <Popover
-        open={true}
+        open={false}
         anchorOrigin={{
           vertical: "center",
           horizontal: "center",

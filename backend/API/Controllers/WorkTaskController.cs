@@ -42,11 +42,11 @@ namespace API.Controllers
         //    return Ok(await Mediator.Send(new Edit.Command { workTask = workTask }));
         //}
 
-        //[HttpGet]
-        //public async Task<ActionResult<List<WorkTask>>> GetWorkTaskBySubSPace(string SubSpaceId)
-        //{
-        //    return await Mediator.Send(new List.Query());
-        //}
+        [HttpGet]
+        public async Task<ActionResult<List<WorkTask>>> GetWorkTaskBySubSpace(string SubSpaceId)
+        {
+            return await Mediator.Send(new List.Query());
+        }
 
     }
 }

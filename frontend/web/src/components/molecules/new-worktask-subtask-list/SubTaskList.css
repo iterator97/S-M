@@ -1,0 +1,8 @@
+.sub-task-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.sub-task-description {
+  width: 75% !important;
+}

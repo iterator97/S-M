@@ -7,7 +7,10 @@ import { useAppSelector } from "../../../store/hooks";
 import { useParams } from "react-router-dom";
 import { iteratorSymbol } from "immer/dist/internal";
 import Space from "../../pages/space/Space";
-import { Container } from "@mui/material";
+import { Button, Container, Grid, Popover } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import { useState } from "react";
+import { AddWorkTaskPopover } from "../../organisms";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -17,7 +20,7 @@ interface TabPanelProps {
 
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
-
+  const [addWorkTaskMode, setAddWorkTaskMode] = useState(false);
   return (
     <Box
       role="tabpanel"
@@ -56,12 +59,14 @@ export default function SpaceLayout() {
 
   return (
     <Box sx={{ width: "100%" }}>
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="basic tabs example"
-        >
+      <Box
+        sx={{
+          borderBottom: 1,
+          borderColor: "divider",
+        }}
+      >
+        {" "}
+        <Tabs value={value} onChange={handleChange}>
           {spaces &&
             spaces[0].subSpaces?.map((item) => {
               return (
@@ -69,6 +74,11 @@ export default function SpaceLayout() {
               );
             })}
         </Tabs>
+        <Grid container direction="row" justifyContent="flex-end">
+          <Button variant="text" startIcon={<AddIcon />} size="large">
+            Add work task
+          </Button>
+        </Grid>
       </Box>
       <TabPanel value={value} index={value}>
         {spaces ? (
@@ -77,6 +87,22 @@ export default function SpaceLayout() {
           <Container>Err</Container>
         )}
       </TabPanel>
+      <Popover
+        open={true}
+        anchorOrigin={{
+          vertical: "center",
+          horizontal: "center",
+        }}
+      >
+        {spaces ? (
+          <>
+            {" "}
+            <AddWorkTaskPopover subSpaces={spaces[0].subSpaces} />
+          </>
+        ) : (
+          <></>
+        )}
+      </Popover>
     </Box>
   );
 }
