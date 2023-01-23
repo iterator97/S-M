@@ -95,10 +95,7 @@ export default function SpaceLayout() {
         }}
       >
         {spaces ? (
-          <>
-            {" "}
-            <AddWorkTaskPopover subSpaces={spaces[0].subSpaces} />
-          </>
+          <> {/* <AddWorkTaskPopover subSpaces={spaces[0].subSpaces} /> */}</>
         ) : (
           <></>
         )}
