@@ -2,6 +2,7 @@
 export type { ICommonSlice } from "./slice/ICommonSlice";
 export type { ISpaceSlice } from "./slice/ISpaceSlice";
 export type { IWorkTaskSlice } from "./slice/IWorkTaskSlice";
+export type { ISubSpaceSlice } from "./slice/ISubSpaceSlice";
 
 // Space
 export type { ISpace } from "./space/ISpace";

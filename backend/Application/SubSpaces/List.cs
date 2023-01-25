@@ -17,7 +17,7 @@ namespace Application.SubSpaces
     {
         public class Query : IRequest<Result<List<WorkTaskProfile>>>
         {
-            public Guid SubSpaceId { get; set; }
+            public string SubSpaceId { get; set; }
         }
 
         public class Handler : IRequestHandler<Query, Result<List<WorkTaskProfile>>>
@@ -38,7 +38,7 @@ namespace Application.SubSpaces
                 var user = await context.Users.FirstOrDefaultAsync(x => x.UserName == userAccessor.GetUserName());
 
                 var subSpaceTasks = await context.WorkTasks
-                    .Where(a => a.SubSpaceId == request.SubSpaceId)
+                    .Where(a => a.SubSpaceId == new Guid(request.SubSpaceId))
                     .ProjectTo<WorkTaskProfile>(mapper.ConfigurationProvider)
                     .ToListAsync(cancellationToken);
 

@@ -13,7 +13,6 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { create_UUID } from "../../../hooks/createGuid";
-import { SubTaskList } from "../../molecules";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -132,13 +131,7 @@ function AddWorkTaskPopover(props: AddWorkTaskPopoverProps) {
           <div>
             <Typography variant="h6">Subtasks</Typography>
           </div>
-          <div>
-            <SubTaskList
-              subtasks={subTasks}
-              onAddNewSubTask={onAddNewSubTask}
-              onSubTaskRemove={onSubTaskRemove}
-            />
-          </div>
+          <div></div>
         </Item>
       </Stack>
     </Box>

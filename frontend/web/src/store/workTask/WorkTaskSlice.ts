@@ -21,9 +21,6 @@ const workTaskSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(getSubSpaceWorkTasks.fulfilled, (state, { payload }) => {
-      // console.log("Work task reduce");
-
-      // console.log(payload);
       state.loading = false;
       state.workTasks = payload;
 

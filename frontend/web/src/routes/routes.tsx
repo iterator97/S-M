@@ -1,8 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 import {
+  CreateNewTaskLayout,
   DashboardLayout,
   InitialLayout,
-  SpaceLayout,
+  SubSpaceLayout,
 } from "../components/layouts";
 
 export const router = createBrowserRouter([
@@ -13,6 +14,9 @@ export const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <DashboardLayout />,
-    children: [{ path: "space/:id", element: <SpaceLayout /> }],
+    children: [
+      { path: "subSpace/:id", element: <SubSpaceLayout /> },
+      { path: "subSpace/:id/newTask", element: <CreateNewTaskLayout /> },
+    ],
   },
 ]);

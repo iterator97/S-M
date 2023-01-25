@@ -1,6 +1,5 @@
 import { getSpaces } from "./actions/getSpaces";
 import { ISpaceSlice } from "./../../models/slice/ISpaceSlice";
-import { ICommonSlice } from "./../../models";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState: ISpaceSlice = {

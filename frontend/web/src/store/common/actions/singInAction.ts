@@ -24,8 +24,6 @@ export const signInAction = createAsyncThunk(
       } else {
         return thunkAPI.rejectWithValue(data);
       }
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   }
 );

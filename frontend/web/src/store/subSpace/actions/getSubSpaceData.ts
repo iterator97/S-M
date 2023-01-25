@@ -1,23 +1,21 @@
-import { ISignIn } from "../../../models";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-export const getSubSpaceWorkTasks = createAsyncThunk(
-  "workTask/getWorkTasks",
+export const getSubSpaceData = createAsyncThunk(
+  "subSPace/getSubSpaces",
   async (id: string, thunkAPI) => {
     try {
       const response = await fetch(
-        `http://localhost:44352/api/subspace/${id}`,
+        `http://localhost:44352/api/subSpace/${id}`,
         {
           method: "GET",
           headers: {
             Accept: "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "application/json",
           },
         }
       );
-      let data = await response.json();
 
+      let data = await response.json();
       if (response.status === 200) {
         return data;
       } else {

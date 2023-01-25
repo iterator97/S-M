@@ -8,9 +8,7 @@ interface WorkTaskPopoverProps {
 }
 
 function WorkTaskPopove(props: WorkTaskPopoverProps) {
-  useEffect(() => {
-    console.log("Popover did mount");
-  }, []);
+  useEffect(() => {}, []);
   return (
     <div>
       {/* {" "}

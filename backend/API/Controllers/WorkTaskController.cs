@@ -1,14 +1,12 @@
 ﻿using Application.DTO;
 using Application.WorkTasks;
 using Domain;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
     public class WorkTaskController : BaseApiController
     {
-
         // Done
         [HttpGet("{id}")]
         public async Task<IActionResult> GetWorkTaskById(Guid id)
@@ -16,12 +14,6 @@ namespace API.Controllers
             return HandleResult(await Mediator.Send(new Details.Query { Id = id }));
         }
 
-        // Done
-        [HttpPost]
-        public async Task<IActionResult> CreateWorkTask(CreateWorkTaskDto workTask)
-        {
-            return HandleResult(await Mediator.Send(new Create.Command { WorkTask = workTask }));
-        }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveWorkTask(Guid id)
@@ -46,6 +38,13 @@ namespace API.Controllers
         public async Task<ActionResult<List<WorkTask>>> GetWorkTaskBySubSpace(string SubSpaceId)
         {
             return await Mediator.Send(new List.Query());
+        }
+
+        [HttpPost("create")]
+        public async Task<IActionResult> CreateWorkTask(CreateWorkTaskDto newWorkTask)
+        {
+            var test = newWorkTask;
+            return HandleResult(await Mediator.Send(new Create.Command { WorkTask = newWorkTask }));
         }
 
     }

@@ -14,7 +14,6 @@ import Sider from "antd/es/layout/Sider";
 import { useState } from "react";
 
 export default function NavSection(props: any) {
-  console.log(props);
   const [collapsed, setCollapsed] = useState<boolean>(false);
   const onCollapse = (collapsedValue: boolean) => {
     setCollapsed(collapsedValue);
