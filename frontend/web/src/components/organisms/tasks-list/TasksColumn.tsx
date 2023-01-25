@@ -9,9 +9,9 @@ interface TasksColumn {
   Status?: number;
 }
 
-const TaskList = (props: TasksColumn) => {
-  const workTasks = useAppSelector((state) =>
-    state.subSpace.workTasks?.filter((x: IWorkTask) => x.Status == props.Status)
+const TasksColumn = (props: TasksColumn) => {
+  const workTasks2 = useAppSelector((state) =>
+    state.subSpace.workTasks?.filter((x: any) => x.status == props.Status)
   );
 
   const renderSwitch = (param: number | undefined) => {
@@ -38,8 +38,8 @@ const TaskList = (props: TasksColumn) => {
         <List
           sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
         >
-          {workTasks && workTasks.length > 0 ? (
-            workTasks.map((item: any) => {
+          {workTasks2 && workTasks2.length > 0 ? (
+            workTasks2.map((item: any) => {
               return <TaskColumn key={item.id} data={item} />;
             })
           ) : (
@@ -51,4 +51,4 @@ const TaskList = (props: TasksColumn) => {
   );
 };
 
-export default TaskList;
+export default TasksColumn;

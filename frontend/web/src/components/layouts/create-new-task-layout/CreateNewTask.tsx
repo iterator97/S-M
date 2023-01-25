@@ -37,7 +37,6 @@ interface AddWorkTaskPopoverProps {
 
 function CreateNewTaskLayout(props: AddWorkTaskPopoverProps) {
   let params = useParams();
-  console.log(params);
   const dispatch = useDispatch<AppDispatch>();
   const [workTaskTitle, setWorkTaskTitle] = useState<any>("");
   const [workTaskDescription, setWorkTaskDescription] = useState<any>("");
@@ -71,7 +70,6 @@ function CreateNewTaskLayout(props: AddWorkTaskPopoverProps) {
     if (index !== -1 && index) newSubTasks?.splice(index, 1);
 
     setSubTasks(newSubTasks);
-    console.log(subTasks);
   };
 
   useEffect(() => {
@@ -85,7 +83,6 @@ function CreateNewTaskLayout(props: AddWorkTaskPopoverProps) {
       SubSpaceId: params.id,
       SubTasks: subTasks,
     };
-    console.log(newWorkTask);
     dispatch(createNewWorkTask(newWorkTask));
   };
 

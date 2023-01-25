@@ -20,8 +20,9 @@ const subSpaceSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(getSubSpaceData.fulfilled, (state, { payload }) => {
-      console.log(payload);
       state.loading = false;
+      console.log(payload);
+
       state.workTasks = payload;
 
       return state;

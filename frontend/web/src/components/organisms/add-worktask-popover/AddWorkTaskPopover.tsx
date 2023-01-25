@@ -61,7 +61,6 @@ function AddWorkTaskPopover(props: AddWorkTaskPopoverProps) {
       description: "Sample description",
     });
     setSubTasks(newSubTasks);
-    console.log(subTasks);
   };
 
   // Working
@@ -73,8 +72,6 @@ function AddWorkTaskPopover(props: AddWorkTaskPopoverProps) {
     if (index !== -1 && index) newSubTasks?.splice(index, 1);
 
     setSubTasks(newSubTasks);
-
-    console.log(newSubTasks);
   };
 
   useEffect(() => {

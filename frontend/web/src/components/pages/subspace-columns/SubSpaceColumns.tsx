@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid";
 import { TasksColumn } from "../../organisms";
 import { Container } from "@mui/material";
 
-const SubSpace = (props: any) => {
+const SubSpaceColumns = (props: any) => {
   return (
     <Box
       sx={{
@@ -33,4 +33,4 @@ const SubSpace = (props: any) => {
   );
 };
 
-export default SubSpace;
+export default SubSpaceColumns;
