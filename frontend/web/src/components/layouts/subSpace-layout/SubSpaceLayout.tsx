@@ -22,8 +22,6 @@ function a11yProps(index: any) {
 
 export default function SubSpaceLayout() {
   const navigate = useNavigate();
-
-  // SubSpace ID
   let params = useParams();
 
   const dispatch = useDispatch<AppDispatch>();

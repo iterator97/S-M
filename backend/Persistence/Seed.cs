@@ -121,6 +121,8 @@ namespace Persistence
                     SubContent = "Sample subcontent 1",
                     Status = Status.NotDefinded,
                     SubSpaceId= new Guid("78fe18b7-20f7-4883-a35a-c0f2ccbfb910"),
+                    AssignWorkerId = "2759ca58-5b55-4ba2-bd05-47999bdb2b21",
+                    AssignWorker = users[0]
                 },
                 new WorkTask
                 {
@@ -129,6 +131,8 @@ namespace Persistence
                     SubContent = "Sample subcontent 2",
                     Status = Status.NotDefinded,
                     SubSpaceId= new Guid("78fe18b7-20f7-4883-a35a-c0f2ccbfb910"),
+                    AssignWorkerId = "2759ca58-5b55-4ba2-bd05-47999bdb2b21",
+                    AssignWorker = users[0],
                     WorkTaskDependencyList= new List<WorkTaskDependency> {
                         new WorkTaskDependency
                         {
@@ -136,7 +140,24 @@ namespace Persistence
                             DependencyId = "cbd4e0e9-289b-4240-8228-9bcab8e0158b"
                         }
                     }
-                }
+                },
+                                new WorkTask
+                {
+                    Id = new Guid("cbd4e0e9-289b-4240-8338-9bcab8e0158b"),
+                    Content = "Sample content 1",
+                    SubContent = "Sample subcontent 1",
+                    Status = Status.NotDefinded,
+                    SubSpaceId= new Guid("78fe18b7-20f7-4883-a35a-c0f2ccbfb910"),
+                },
+                                                                new WorkTask
+                {
+                    Id = new Guid("cbd4e0e9-289b-5340-8338-9bcab8e0158b"),
+                    Content = "Sample content 1",
+                    SubContent = "Sample subcontent 1",
+                    Status = Status.NotDefinded,
+                    SubSpaceId= new Guid("78fe18b7-20f7-4883-a35a-c0f2ccbfb910"),
+                },
+
             };
                 await context.WorkTasks.AddRangeAsync(workTasks);
             }

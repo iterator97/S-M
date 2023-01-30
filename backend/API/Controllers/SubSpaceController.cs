@@ -11,5 +11,11 @@ namespace API.Controllers
             return HandleResult(await Mediator.Send(new List.Query { SubSpaceId = id }));
 
         }
+
+        [HttpGet("users/{id}")]
+        public async Task<IActionResult> GetSubSpaceUsers(string id)
+        {
+            return HandleResult(await Mediator.Send(new UsersList.Query { SubSpaceId = id }));
+        }
     }
 }

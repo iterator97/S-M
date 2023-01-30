@@ -1,4 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
+import {
+  NavLink as RouterLink,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
@@ -6,17 +11,20 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import Popover from "@mui/material/Popover";
 import { WorkTaskPopover } from "../../atoms";
+import { Box, Button } from "@mui/material";
 
 interface TaskProps {
   data?: any;
-  modal?: boolean;
+  modal: boolean;
   setModal?: any;
 }
 const TaskColumn = (props: TaskProps) => {
+  const navigate = useNavigate();
+  console.log(props.data);
   return (
     <ListItem alignItems="flex-start">
       <ListItemAvatar>
-        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+        <Avatar alt="Michal Kalisiak" src="/static/images/avatar/1.jpg" />
       </ListItemAvatar>
       <ListItemText
         primary={props.data.content}
@@ -33,18 +41,24 @@ const TaskColumn = (props: TaskProps) => {
           </React.Fragment>
         }
       />
+      <Button onClick={() => navigate("editTask/" + props.data.id)}>
+        Edit task
+      </Button>
       <Popover
-        open={false}
+        open={props.modal}
         anchorOrigin={{
           vertical: "center",
           horizontal: "center",
         }}
       >
-        <WorkTaskPopover
-          workTask={props.data}
-          modal={props.modal}
-          setModal={props.setModal}
-        />
+        <Box
+          sx={{
+            width: "800px",
+            height: "800px",
+          }}
+        >
+          <WorkTaskPopover workTask={props.data} setModal={props.setModal} />
+        </Box>
       </Popover>
     </ListItem>
   );

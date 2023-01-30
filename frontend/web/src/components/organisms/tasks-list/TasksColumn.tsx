@@ -1,6 +1,7 @@
 import { Box, Container } from "@mui/material";
 import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
+import { useState } from "react";
 import { IWorkTask } from "../../../models";
 import { useAppSelector } from "../../../store/hooks";
 import { TaskColumn } from "../../molecules";
@@ -10,7 +11,9 @@ interface TasksColumn {
 }
 
 const TasksColumn = (props: TasksColumn) => {
-  const workTasks2 = useAppSelector((state) =>
+  const [modal, setModal] = useState(false);
+
+  const workTasks = useAppSelector((state) =>
     state.subSpace.workTasks?.filter((x: any) => x.status == props.Status)
   );
 
@@ -38,9 +41,16 @@ const TasksColumn = (props: TasksColumn) => {
         <List
           sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
         >
-          {workTasks2 && workTasks2.length > 0 ? (
-            workTasks2.map((item: any) => {
-              return <TaskColumn key={item.id} data={item} />;
+          {workTasks && workTasks.length > 0 ? (
+            workTasks.map((item: any) => {
+              return (
+                <TaskColumn
+                  key={item.id}
+                  data={item}
+                  modal={modal}
+                  setModal={setModal}
+                />
+              );
             })
           ) : (
             <></>

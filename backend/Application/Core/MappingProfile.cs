@@ -33,7 +33,10 @@ namespace Application.Core
                 .ForMember(a => a.Id, b => b.MapFrom(c => c.Id))
                 .ForMember(a => a.Content, b => b.MapFrom(c => c.Content))
                 .ForMember(a => a.SubContent, b => b.MapFrom(c => c.SubContent))
-                .ForMember(a => a.Status, b => b.MapFrom(c => c.Status));
+                .ForMember(a => a.Status, b => b.MapFrom(c => c.Status))
+                .ForMember(a => a.AssignWorkerId, b => b.MapFrom(c => c.AssignWorkerId))
+                .ForMember(a => a.AssignWorker, b => b.MapFrom(c => c.AssignWorker));
+
 
             CreateMap<SubSpace, SubSpaceProfile>()
                  .ForMember(x => x.Id, p => p.MapFrom(o => o.Id))

@@ -18,5 +18,8 @@ namespace Application.Profiles
         public Status Status { get; set; }
 
         public Guid SubSpaceId { get; set; }
+
+        public string AssignWorkerId { get; set; }
+        public AppUserProfile AssignWorker { get; set; }
     }
 }
