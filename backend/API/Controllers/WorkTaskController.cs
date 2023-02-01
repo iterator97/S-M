@@ -27,12 +27,11 @@ namespace API.Controllers
             return HandleResult(await Mediator.Send(new Dependency.Command { WorkTaskId = dependencyDto.WorkTaskId, Dependencies = dependencyDto.Dependencies }));
         }
 
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> EditWorkTask(Guid id, WorkTask workTask)
-        //{
-        //    workTask.Id = id;
-        //    return Ok(await Mediator.Send(new Edit.Command { workTask = workTask }));
-        //}
+        [HttpPost("editworktask")]
+        public async Task<IActionResult> EditWorkTask(EditWorkTaskDto workTask)
+        {
+            return HandleResult(await Mediator.Send(new EditTask.Command { workTask = workTask }));
+        }
 
         [HttpGet]
         public async Task<ActionResult<List<WorkTask>>> GetWorkTaskBySubSpace(string SubSpaceId)
@@ -43,7 +42,6 @@ namespace API.Controllers
         [HttpPost("create")]
         public async Task<IActionResult> CreateWorkTask(CreateWorkTaskDto newWorkTask)
         {
-            var test = newWorkTask;
             return HandleResult(await Mediator.Send(new Create.Command { WorkTask = newWorkTask }));
         }
 

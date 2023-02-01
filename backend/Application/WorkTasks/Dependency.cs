@@ -37,7 +37,6 @@ namespace Application.WorkTasks
                     return null;
                 }
 
-
                 var workTasks = _context.WorkTasks;
 
                 foreach (var item in workTasks)
