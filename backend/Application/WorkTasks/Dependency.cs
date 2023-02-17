@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Application.DTO;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.WorkTasks
 {
@@ -14,8 +16,8 @@ namespace Application.WorkTasks
     {
         public class Command : IRequest<Result<Unit>>
         {
-            public string WorkTaskId { get; set; }
-            public List<string> Dependencies { get; set; }
+            public EditWorkTaskDto workTask { get; set; }
+
         }
 
         public class Handler : IRequestHandler<Command, Result<Unit>>
@@ -30,47 +32,85 @@ namespace Application.WorkTasks
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
 
-                var workTask = await _context.WorkTasks.FindAsync(request.WorkTaskId, cancellationToken);
+                var workTaskToEdit = await _context.WorkTasks.FindAsync(new Guid(request.workTask.previousId));
 
-                if (workTask == null)
+                if (workTaskToEdit == null)
                 {
-                    return null;
+                    return Result<Unit>.Failure("Failed to find work task");
                 }
 
-                var workTasks = _context.WorkTasks;
-
-                foreach (var item in workTasks)
+                if (request.workTask.Content != workTaskToEdit.Content)
                 {
-                    foreach (var key in request.Dependencies)
+                    workTaskToEdit.Content = request.workTask.Content;
+                }
+
+                if (request.workTask.SubContent != workTaskToEdit.SubContent)
+                {
+                    workTaskToEdit.SubContent = request.workTask.SubContent;
+                }
+
+                // Sprawdzam czy wszystkie zależne zadania zostały zakończone (Status done)
+                var actualWorkTaskDependencyList = await _context.WorkTaskDependencies.Where(x => x.WorkTaskId.ToString() == request.workTask.previousId).ToListAsync();
+
+                if ((int)request.workTask.Status == (int)Status.Done)
+                {
+                    if (actualWorkTaskDependencyList != null)
                     {
-                        if (new Guid(key) == item.Id)
+                        foreach (var item in actualWorkTaskDependencyList)
                         {
-                            foreach (var itemToCheck in item.WorkTaskDependencyList)
+                            if (item != null)
                             {
-                                if (itemToCheck.WorkTaskId == new Guid(key))
+                                var workTaskToCheck = await _context.WorkTasks.FindAsync(item.WorkTaskId);
+                                if (workTaskToCheck != null)
                                 {
-                                    return Result<Unit>.Failure("Nie można dodać ponieważ to zadanie jest zależne od zadnia z id:" + itemToCheck.WorkTaskId);
+                                    if (workTaskToCheck.Status != Status.Done)
+                                    {
+                                        return Result<Unit>.Failure("Nie można zakończyć zadania z powodu tego, że zadanie" + workTaskToCheck.Content + "NIe jest ukończone");
+                                    }
                                 }
                             }
                         }
+
                     }
                 }
 
-                var newDepList = new List<WorkTaskDependency>() { };
-
-                foreach (var item in request.Dependencies)
+                // Edycja zadań zależnych (Status różny od Done)
+                if (request.workTask.WorkTaskDependencyList.Count() > 0 && (int)request.workTask.Status != (int)Status.Done)
                 {
-                    var newDep = new WorkTaskDependency()
+                    foreach (var item in actualWorkTaskDependencyList)
                     {
-                        DependencyId = item,
-                        WorkTask = workTask,
-                    };
-                    newDepList.Add(newDep);
+                        _context.Remove(item);
+                    }
+
+                    foreach (var item in request.workTask.WorkTaskDependencyList)
+                    {
+                        var dependencyToCheck = await _context.WorkTaskDependencies.Where(x => x.WorkTaskId.ToString() == item).ToListAsync();
+
+                        foreach (var el in dependencyToCheck)
+                        {
+                            if (el.DependencyId == request.workTask.previousId)
+                            {
+                                return Result<Unit>.Failure("Nie można dodać zależności ponieważ jest zależne od elementu" + el.DependencyId);
+                            }
+                            WorkTaskDependency newDep = new WorkTaskDependency()
+                            {
+                                WorkTaskId = new Guid(request.workTask.previousId),
+                                DependencyId = el.Id.ToString(),
+                            };
+                            _context.WorkTaskDependencies.Add(newDep);
+                        }
+                    }
+
+                }
+
+                if ((int)request.workTask.Status != (int)Status.Done)
+                {
+                    workTaskToEdit.Status = (Status)request.workTask.Status;
                 }
 
                 var result = await _context.SaveChangesAsync() > 0;
 
-                if (!result) return Result<Unit>.Failure("Failed to add dependency");
+                if (!result) return Result<Unit>.Failure("Failed to update work task");
 
                 return Result<Unit>.Success(Unit.Value);
 

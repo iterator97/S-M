@@ -22,16 +22,16 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddDependency(DependencyDto dependencyDto)
+        public async Task<IActionResult> AddDependency(EditWorkTaskDto workTask)
         {
-            return HandleResult(await Mediator.Send(new Dependency.Command { WorkTaskId = dependencyDto.WorkTaskId, Dependencies = dependencyDto.Dependencies }));
+            return HandleResult(await Mediator.Send(new Dependency.Command { workTask = workTask }));
         }
 
-        [HttpPost("editworktask")]
-        public async Task<IActionResult> EditWorkTask(EditWorkTaskDto workTask)
-        {
-            return HandleResult(await Mediator.Send(new EditTask.Command { workTask = workTask }));
-        }
+        //[HttpPost("editworktask")]
+        //public async Task<IActionResult> EditWorkTask(EditWorkTaskDto workTask)
+        //{
+        //    return HandleResult(await Mediator.Send(new EditTask.Command { workTask = workTask }));
+        //}
 
         [HttpGet]
         public async Task<ActionResult<List<WorkTask>>> GetWorkTaskBySubSpace(string SubSpaceId)

@@ -6,7 +6,6 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  SelectChangeEvent,
   Typography,
   TextField,
 } from "@mui/material";
@@ -28,26 +27,17 @@ const EditWorkTask = () => {
     state.subSpace.workTasks?.filter((x) => x.id == params.taskId)
   );
 
+  console.log("workTask");
+  console.log(workTask);
+
   const workTaskRest = useAppSelector((state) =>
     state.subSpace.workTasks?.filter((x) => x.id != params.taskId)
   );
 
-  console.log("REST");
-  console.log(workTaskRest);
-
   const [dependencies, setDependencies] = React.useState([]);
 
   const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    console.log(event.target);
-    setDependencies(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
-    console.log("CLICK");
-    console.log(dependencies);
+    setDependencies(event.target.value);
   };
 
   const [assignWorker, setAssignWorker] = useState(workTask[0].assignWorker);
@@ -188,7 +178,7 @@ const EditWorkTask = () => {
               input={<OutlinedInput label="Name" />}
             >
               {workTaskRest.map((item) => (
-                <MenuItem key={item.id} value={item}>
+                <MenuItem key={item.id} value={item.content}>
                   {item.content}
                 </MenuItem>
               ))}
