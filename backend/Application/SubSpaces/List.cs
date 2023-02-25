@@ -2,7 +2,7 @@
 using Application.Core;
 using Application.Interfaces;
 using Application.Profiles;
-using Application.Spaces;
+using Application.Projects;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
@@ -38,7 +38,7 @@ namespace Application.SubSpaces
                 var user = await context.Users.FirstOrDefaultAsync(x => x.UserName == userAccessor.GetUserName());
 
                 var subSpaceTasks = await context.WorkTasks
-                    .Where(a => a.SubSpaceId == new Guid(request.SubSpaceId))
+                    .Where(a => a.SubProjectId == new Guid(request.SubSpaceId))
                     .ProjectTo<WorkTaskProfile>(mapper.ConfigurationProvider)
                     .ToListAsync(cancellationToken);
 

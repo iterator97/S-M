@@ -47,7 +47,8 @@ function WorkTaskPopove(props: WorkTaskPopoverProps) {
 
   const users = useAppSelector(
     (state) =>
-      state.space.spaces?.filter((x: any) => x.id != params.id)[0].attendes
+      state.projects?.projects?.filter((x: any) => x.id != params.id)[0]
+        .attendes
   );
 
   const [assignWorker, setAssignWorker] = useState({
@@ -59,7 +60,6 @@ function WorkTaskPopove(props: WorkTaskPopoverProps) {
 
   const handleUser = (event: SelectChangeEvent) => {
     const newUser = users?.filter((x: any) => x.id != event.target.value);
-    console.log(newUser);
 
     if (newUser) {
       setAssignWorker({
@@ -71,7 +71,6 @@ function WorkTaskPopove(props: WorkTaskPopoverProps) {
 
   const handleStatus = (event: SelectChangeEvent) => {
     let newStatus = statuses.filter((x: any) => x.status == event.target.value);
-    console.log(newStatus);
 
     setStatus(newStatus[0]);
   };

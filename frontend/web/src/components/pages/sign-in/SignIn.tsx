@@ -21,10 +21,12 @@ interface SingInProps {
 
 const SignIn = (props: SingInProps) => {
   const dispatch = useDispatch<AppDispatch>();
+  let navigate = useNavigate();
+
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
   const signedIn = useAppSelector((state) => state.common.signedIn);
-  let navigate = useNavigate();
 
   const onSignInClick = () => {
     let signInValues: ISignIn = {

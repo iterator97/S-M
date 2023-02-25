@@ -25,7 +25,7 @@ namespace Application.WorkTasks
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
 
-                var subSpace = await _context.SubSpaces.FindAsync(request.WorkTask.SubSpaceId);
+                var subSpace = await _context.SubProjects.FindAsync(request.WorkTask.SubSpaceId);
 
                 if (subSpace == null) { return null; }
 
@@ -51,7 +51,7 @@ namespace Application.WorkTasks
                     Content = request.WorkTask.Content,
                     SubContent = request.WorkTask.SubContent,
                     Status = Status.NotDefinded,
-                    SubSpace = subSpace,
+                    SubProject = subSpace,
                     WorkTaskDependencyList = new List<WorkTaskDependency>() { },
                     CreatedDate = DateTime.UtcNow,
                     EndDate = DateTime.UtcNow,

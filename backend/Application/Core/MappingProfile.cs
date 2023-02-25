@@ -10,12 +10,12 @@ namespace Application.Core
         {
             CreateMap<WorkTask, WorkTask>();
 
-            CreateMap<SpaceAttendee, AppUserProfile>()
-             .ForMember(d => d.Id, o => o.MapFrom(s => s.AppUser.Id))
-             .ForMember(d => d.Name, o => o.MapFrom(s => s.AppUser.Name))
-             .ForMember(d => d.Surname, o => o.MapFrom(s => s.AppUser.Surname))
-             .ForMember(d => d.Email, o => o.MapFrom(s => s.AppUser.Email))
-             .ForMember(d => d.IsOwner, o => o.MapFrom(s => s.IsOwner));
+            CreateMap<ProjectAttendee, AppUserProfile>()
+                 .ForMember(d => d.Id, o => o.MapFrom(s => s.AppUser.Id))
+                 .ForMember(d => d.Name, o => o.MapFrom(s => s.AppUser.Name))
+                 .ForMember(d => d.Surname, o => o.MapFrom(s => s.AppUser.Surname))
+                 .ForMember(d => d.Email, o => o.MapFrom(s => s.AppUser.Email))
+                 .ForMember(d => d.IsOwner, o => o.MapFrom(s => s.IsOwner));
 
             CreateMap<AppUser, AppUserProfile>()
                 .ForMember(a => a.Id, b => b.MapFrom(c => c.Id))
@@ -23,11 +23,21 @@ namespace Application.Core
                 .ForMember(a => a.Surname, b => b.MapFrom(c => c.Surname))
                 .ForMember(a => a.Email, b => b.MapFrom(c => c.Email));
 
-            CreateMap<Space, SpaceProfile>()
-                .ForMember(d => d.OwnerId, o => o.MapFrom(s => s.Attendees.FirstOrDefault(x => x.IsOwner).AppUser.Id))
-                .ForMember(d => d.OwnerName, o => o.MapFrom(s => s.Attendees.FirstOrDefault(x => x.IsOwner).AppUser.Name))
-                .ForMember(d => d.OwnerSurname, o => o.MapFrom(s => s.Attendees.FirstOrDefault(x => x.IsOwner).AppUser.Surname))
-                .ForMember(d => d.Attendes, d => d.MapFrom(s => s.Attendees));
+            CreateMap<Project, ProjectProfile>()
+                .ForMember(a => a.Id, d => d.MapFrom(s => s.Id))
+                .ForMember(a => a.Name, d => d.MapFrom(s => s.Name))
+                .ForMember(a => a.Description, d => d.MapFrom(s => s.Description))
+                .ForMember(a => a.StartDate, d => d.MapFrom(s => s.StartDate))
+                .ForMember(a => a.EndDate, d => d.MapFrom(s => s.EndDate))
+                .ForMember(d => d.OwnerId, o => o.MapFrom(s => s.ProjectAttendees.FirstOrDefault(x => x.IsOwner).AppUser.Id))
+                .ForMember(d => d.OwnerName, o => o.MapFrom(s => s.ProjectAttendees.FirstOrDefault(x => x.IsOwner).AppUser.Name))
+                .ForMember(d => d.OwnerSurname, o => o.MapFrom(s => s.ProjectAttendees.FirstOrDefault(x => x.IsOwner).AppUser.Surname))
+                .ForMember(d => d.OwnerEmail, o => o.MapFrom(s => s.ProjectAttendees.FirstOrDefault(x => x.IsOwner).AppUser.Email))
+                .ForMember(d => d.Attendes, d => d.MapFrom(s => s.ProjectAttendees));
+
+            CreateMap<SubProject, SubProjectProfile>()
+                 .ForMember(x => x.Id, p => p.MapFrom(o => o.Id))
+                 .ForMember(x => x.Name, p => p.MapFrom(o => o.Name));
 
             CreateMap<WorkTask, WorkTaskProfile>()
                 .ForMember(a => a.Id, b => b.MapFrom(c => c.Id))
@@ -36,14 +46,6 @@ namespace Application.Core
                 .ForMember(a => a.Status, b => b.MapFrom(c => c.Status))
                 .ForMember(a => a.AssignWorkerId, b => b.MapFrom(c => c.AssignWorkerId))
                 .ForMember(a => a.AssignWorker, b => b.MapFrom(c => c.AssignWorker));
-
-
-            CreateMap<SubSpace, SubSpaceProfile>()
-                 .ForMember(x => x.Id, p => p.MapFrom(o => o.Id))
-                 .ForMember(x => x.Name, p => p.MapFrom(o => o.Name));
-
-
-
 
         }
     }

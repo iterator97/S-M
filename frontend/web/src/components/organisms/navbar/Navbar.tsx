@@ -46,7 +46,9 @@ Nav.propTypes = {
 
 export default function Nav({ openNav, onCloseNav }: any) {
   const { pathname } = useLocation();
-  const spaces = useAppSelector((state) => state.space.spaces);
+  const projects = useAppSelector((state) => state.projects.projects);
+
+  console.log(projects);
 
   useEffect(() => {
     if (openNav) {
@@ -91,7 +93,7 @@ export default function Nav({ openNav, onCloseNav }: any) {
         </Link>
       </Box>
       {/* Items */}
-      <NavSection data={spaces} />
+      <NavSection data={projects} />
       <Box sx={{ flexGrow: 1 }} />
     </Scrollbar>
   );

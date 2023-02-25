@@ -11,8 +11,8 @@ public class DataContext : IdentityDbContext<AppUser>
 
     }
 
-    public DbSet<Space> Spaces { get; set; }
-    public DbSet<SubSpace> SubSpaces { get; set; }
+    public DbSet<Project> Projects { get; set; }
+    public DbSet<SubProject> SubProjects { get; set; }
     public DbSet<WorkTask> WorkTasks { get; set; }
     public DbSet<SubTask> SubTasks { get; set; }
     public DbSet<AppUser> AppUsers { get; set; }
@@ -23,31 +23,31 @@ public class DataContext : IdentityDbContext<AppUser>
     {
         base.OnModelCreating(builder);
 
-        // START Space + SubSpace => One to many
-        builder.Entity<SubSpace>()
-            .HasOne(a => a.Space)
-                .WithMany(b => b.SubSpaces)
-                    .HasForeignKey(c => c.SpaceId);
+        // START Project + SubProject => One to many
+        builder.Entity<SubProject>()
+            .HasOne(a => a.Project)
+                .WithMany(b => b.SubProjects)
+                    .HasForeignKey(c => c.ProjectId);
 
-        // START Space + AppUser => Many to Many
-        builder.Entity<SpaceAttendee>
-            (x => x.HasKey(aa => new { aa.AppUserId, aa.SpaceId }));
+        // START Project + AppUser => Many to Many
+        builder.Entity<ProjectAttendee>
+            (x => x.HasKey(aa => new { aa.AppUserId, aa.ProjectId }));
 
-        builder.Entity<SpaceAttendee>()
+        builder.Entity<ProjectAttendee>()
             .HasOne(u => u.AppUser)
-                .WithMany(a => a.Spaces)
+                .WithMany(a => a.Projects)
                     .HasForeignKey(aa => aa.AppUserId);
 
-        builder.Entity<SpaceAttendee>().
-             HasOne(u => u.Space).
-                WithMany(a => a.Attendees)
-                    .HasForeignKey(aa => aa.SpaceId);
+        builder.Entity<ProjectAttendee>().
+             HasOne(u => u.Project).
+                WithMany(a => a.ProjectAttendees)
+                    .HasForeignKey(aa => aa.ProjectId);
 
         // START SubSpace + WorkTask => One to many
         builder.Entity<WorkTask>()
-            .HasOne(a => a.SubSpace)
-                .WithMany(b => b.SubSpaceTasks)
-                    .HasForeignKey(b => b.SubSpaceId);
+            .HasOne(a => a.SubProject)
+                .WithMany(b => b.SubProjectWorkTasks)
+                    .HasForeignKey(b => b.SubProjectId);
 
 
         // START WorkTask + WorkTaskDependenc => One to many

@@ -5,7 +5,7 @@ import Header from "../../organisms/header/Header";
 import Nav from "../../organisms/navbar/Navbar";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../store/store";
-import { getSpaces } from "../../../store/space/actions/getSpaces";
+import { getProjects } from "../../../store/projects/actions/getProjects";
 
 const APP_BAR_MOBILE = 64;
 const APP_BAR_DESKTOP = 92;
@@ -34,8 +34,7 @@ export default function DashboardLayout() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    let temp = localStorage.getItem("token");
-    dispatch(getSpaces(temp));
+    dispatch(getProjects(localStorage.getItem("token")));
   }, []);
 
   return (

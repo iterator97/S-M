@@ -2,7 +2,7 @@
 using Application.Core;
 using Application.Interfaces;
 using Application.Profiles;
-using Application.Spaces;
+using Application.Projects;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;

@@ -1,13 +1,14 @@
 // Slice
 export type { ICommonSlice } from "./slice/ICommonSlice";
-export type { ISpaceSlice } from "./slice/ISpaceSlice";
+export type { IProjectSlice } from "./slice/IProjectSlice";
 export type { IWorkTaskSlice } from "./slice/IWorkTaskSlice";
-export type { ISubSpaceSlice } from "./slice/ISubSpaceSlice";
+export type { ISubProjectSlice } from "./slice/ISubProjectSlice";
 
-// Space
-export type { ISpace } from "./space/ISpace";
-export type { IAttendee } from "./space/IAttendee";
-export type { ISubSpace } from "./space/ISubSpace";
+// Project
+export type { IProject } from "./project/IProject";
+export type { IAttendee } from "./project/IAttendee";
+export type { ISubProject } from "./project/ISubProject";
+export type { INewProjectDto } from "./project/INewProjectDto";
 
 // User
 export type { ISignIn } from "./user/ISignIn";

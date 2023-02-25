@@ -38,7 +38,7 @@ export default function NavSection(props: any) {
                     title={x.name}
                     icon={<FolderOpenOutlined />}
                   >
-                    {x.subSpaces.map((y: any) => {
+                    {x.subProjects.map((y: any) => {
                       return (
                         <Menu.Item key={y.id}>
                           {" "}
@@ -69,6 +69,23 @@ export default function NavSection(props: any) {
           ) : (
             <></>
           )}
+          <StyledNavItem
+            component={RouterLink}
+            to={"newSpace"}
+            sx={{
+              "&.active": {
+                color: "text.primary",
+                bgcolor: "action.selected",
+                fontWeight: "fontWeightBold",
+              },
+            }}
+          >
+            <StyledNavItemIcon>
+              <LabelIcon />
+            </StyledNavItemIcon>
+
+            <ListItemText disableTypography primary={"newSubSpace"} />
+          </StyledNavItem>
         </Menu>
       </Sider>
     </div>
