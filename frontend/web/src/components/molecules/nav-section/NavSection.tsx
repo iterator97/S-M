@@ -12,6 +12,8 @@ import {
 } from "@ant-design/icons";
 import Sider from "antd/es/layout/Sider";
 import { useState } from "react";
+import EditIcon from "@mui/icons-material/Edit";
+import AddIcon from "@mui/icons-material/Add";
 
 export default function NavSection(props: any) {
   const [collapsed, setCollapsed] = useState<boolean>(false);
@@ -30,7 +32,12 @@ export default function NavSection(props: any) {
           }}
         >
           {arr != null ? (
-            <SubMenu key="sub1" icon={<FolderOutlined />} title="Projects">
+            <SubMenu
+              key="sub1"
+              icon={<FolderOutlined />}
+              title="Projekty"
+              style={{ color: "black !important" }}
+            >
               {arr.map((x: any) => {
                 return (
                   <SubMenu
@@ -44,10 +51,9 @@ export default function NavSection(props: any) {
                           {" "}
                           <StyledNavItem
                             component={RouterLink}
-                            to={"subSpace/" + y.id}
+                            to={"project/" + x.id + "/subSpace/" + y.id}
                             sx={{
                               "&.active": {
-                                color: "text.primary",
                                 bgcolor: "action.selected",
                                 fontWeight: "fontWeightBold",
                               },
@@ -62,6 +68,28 @@ export default function NavSection(props: any) {
                         </Menu.Item>
                       );
                     })}
+                    <Menu.Item>
+                      <StyledNavItem
+                        component={RouterLink}
+                        to={"project/" + x.id}
+                        sx={{
+                          "&.active": {
+                            color: "text.primary",
+                            bgcolor: "action.selected",
+                            fontWeight: "fontWeightBold",
+                          },
+                        }}
+                      >
+                        <StyledNavItemIcon>
+                          <EditIcon />
+                        </StyledNavItemIcon>
+
+                        <ListItemText
+                          disableTypography
+                          primary="Edytuj projekt"
+                        />
+                      </StyledNavItem>
+                    </Menu.Item>
                   </SubMenu>
                 );
               })}
@@ -69,23 +97,30 @@ export default function NavSection(props: any) {
           ) : (
             <></>
           )}
-          <StyledNavItem
-            component={RouterLink}
-            to={"newSpace"}
-            sx={{
-              "&.active": {
-                color: "text.primary",
-                bgcolor: "action.selected",
-                fontWeight: "fontWeightBold",
-              },
+          <Menu
+            mode="inline"
+            style={{
+              width: 256,
             }}
           >
-            <StyledNavItemIcon>
-              <LabelIcon />
-            </StyledNavItemIcon>
+            <StyledNavItem
+              component={RouterLink}
+              to={"newSpace"}
+              sx={{
+                "&.active": {
+                  color: "text.primary",
+                  bgcolor: "action.selected",
+                  fontWeight: "fontWeightBold",
+                },
+              }}
+            >
+              <StyledNavItemIcon>
+                <AddIcon />
+              </StyledNavItemIcon>
 
-            <ListItemText disableTypography primary={"newSubSpace"} />
-          </StyledNavItem>
+              <ListItemText disableTypography primary={"Dodaj projekt"} />
+            </StyledNavItem>
+          </Menu>
         </Menu>
       </Sider>
     </div>

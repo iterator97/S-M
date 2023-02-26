@@ -5,3 +5,5 @@ export { default as SingIn } from "./sign-in/SignIn";
 export { default as SignUp } from "./sign-up/SignUp";
 
 export { default as SubProject } from "./subProject/SubProject";
+
+export { default as EditProject } from "./edit-project/EditProject";

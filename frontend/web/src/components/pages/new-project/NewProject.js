@@ -15,6 +15,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { useDispatch, useSelector } from "react-redux";
 import { createNewProject } from "../../../store/projects/actions/createNewProject";
+import { getProjects } from "../../../store/projects/actions/getProjects";
 import { EditableRow } from "./EditableRow";
 import { EditableCell } from "./EditableCell";
 
@@ -119,6 +120,7 @@ const NewProject = () => {
     };
 
     dispatch(createNewProject(obj));
+    dispatch(getProjects(localStorage.getItem("token")));
   };
 
   return (

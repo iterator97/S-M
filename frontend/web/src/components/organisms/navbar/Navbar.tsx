@@ -48,8 +48,6 @@ export default function Nav({ openNav, onCloseNav }: any) {
   const { pathname } = useLocation();
   const projects = useAppSelector((state) => state.projects.projects);
 
-  console.log(projects);
-
   useEffect(() => {
     if (openNav) {
       onCloseNav();

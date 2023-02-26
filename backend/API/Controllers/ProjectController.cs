@@ -17,5 +17,11 @@ namespace API.Controllers
         {
             return HandleResult(await Mediator.Send(new Create.Command() { NewProject = newProject }));
         }
+
+        [HttpGet("otherParticipants/{id}")]
+        public async Task<ActionResult> GetOtherParticipants(string id)
+        {
+            return HandleResult(await Mediator.Send(new OtherParticipants.Query() { ProjectId = id }));
+        }
     }
 }
