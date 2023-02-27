@@ -119,6 +119,8 @@ const NewProject = () => {
       SubProjects: dataSource,
     };
 
+    console.log(obj);
+
     dispatch(createNewProject(obj));
     dispatch(getProjects(localStorage.getItem("token")));
   };

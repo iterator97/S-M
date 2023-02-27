@@ -1,5 +1,5 @@
 ﻿using Application.Core;
-using Application.DTO;
+using Application.Dto;
 using AutoMapper;
 using Domain;
 using MediatR;
@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Application.WorkTasks
 {
-    public class EditTask
+    public class Edit
     {
         public class Command : IRequest<Result<Unit>>
         {

@@ -51,7 +51,7 @@ export default function NavSection(props: any) {
                           {" "}
                           <StyledNavItem
                             component={RouterLink}
-                            to={"project/" + x.id + "/subSpace/" + y.id}
+                            to={"project/" + x.id + "/subProject/" + y.id}
                             sx={{
                               "&.active": {
                                 bgcolor: "action.selected",

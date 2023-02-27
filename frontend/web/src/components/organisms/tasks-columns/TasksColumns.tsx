@@ -10,7 +10,7 @@ interface TasksColumn {
   Status?: number;
 }
 
-const TasksColumn = (props: TasksColumn) => {
+const TasksColumns = (props: TasksColumn) => {
   const [modal, setModal] = useState(false);
 
   const workTasks = useAppSelector((state) =>
@@ -20,13 +20,13 @@ const TasksColumn = (props: TasksColumn) => {
   const renderSwitch = (param: number | undefined) => {
     switch (param) {
       case 0:
-        return "Not assigned";
+        return "Nie przypisane";
       case 1:
-        return "Assigned";
+        return "Przypisane";
       case 2:
-        return "In progress";
+        return "W trakcie";
       case 3:
-        return "Done";
+        return "Skończone";
       default:
         return "";
     }
@@ -61,4 +61,4 @@ const TasksColumn = (props: TasksColumn) => {
   );
 };
 
-export default TasksColumn;
+export default TasksColumns;

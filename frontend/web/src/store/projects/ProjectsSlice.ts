@@ -2,10 +2,12 @@ import { getProjects } from "./actions/getProjects";
 import { createSlice } from "@reduxjs/toolkit";
 import { IProjectSlice } from "../../models";
 import { getOtherParticipants } from "./actions/getOtherParticipants";
+import { getProject } from "./actions/getProject";
 
 const initialState: IProjectSlice = {
   loading: false,
   projects: null,
+  selectedProject: null,
   otherUsers: [],
 };
 
@@ -16,7 +18,7 @@ const projectsSlice = createSlice({
     clearState: (state) => {},
   },
   extraReducers: (builder) => {
-    // Sign in START ->
+    // Get projects
     builder.addCase(getProjects.pending, (state, action) => {
       state.loading = true;
     });
@@ -30,6 +32,7 @@ const projectsSlice = createSlice({
       return state;
     });
 
+    // Get other participants
     builder.addCase(getOtherParticipants.pending, (state, action) => {
       state.loading = true;
     });
@@ -45,7 +48,20 @@ const projectsSlice = createSlice({
         return state;
       }
     );
-    // Sign in END ->
+
+    // Get project data
+    builder.addCase(getProject.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(getProject.fulfilled, (state, { payload }) => {
+      state.loading = false;
+      state.selectedProject = payload;
+
+      return state;
+    });
+    builder.addCase(getProject.rejected, (state, { payload }: any) => {
+      return state;
+    });
   },
 });
 

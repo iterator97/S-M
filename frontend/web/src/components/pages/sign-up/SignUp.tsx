@@ -9,12 +9,47 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { Paper } from "@mui/material";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../store/store";
 
 interface SingUpProps {
   changeMode?: any;
 }
 
 export default function SignUp(props: SingUpProps) {
+  const [Name, setName] = useState<string>("");
+  const [Surname, setSurname] = useState<string>("");
+  const [Email, setEmail] = useState<string>("");
+  const [Password, setPassword] = useState<string>("");
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  const onSignUp = async () => {
+    const response = await fetch(
+      "http://localhost:44352/api/account/register",
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          Name,
+          Surname,
+          Email,
+          Password,
+        }),
+      }
+    );
+    let data = await response.json();
+
+    if (response.status === 200) {
+      console.log(data);
+    } else {
+    }
+  };
+
   return (
     <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
       <Box
@@ -43,6 +78,8 @@ export default function SignUp(props: SingUpProps) {
                 id="firstName"
                 label="First Name"
                 autoFocus
+                value={Name}
+                onChange={(e) => setName(e.target.value)}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -53,6 +90,8 @@ export default function SignUp(props: SingUpProps) {
                 label="Last Name"
                 name="lastName"
                 autoComplete="family-name"
+                value={Surname}
+                onChange={(e) => setSurname(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -63,6 +102,8 @@ export default function SignUp(props: SingUpProps) {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                value={Email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -74,6 +115,8 @@ export default function SignUp(props: SingUpProps) {
                 type="password"
                 id="password"
                 autoComplete="new-password"
+                value={Password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -88,6 +131,7 @@ export default function SignUp(props: SingUpProps) {
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
+            onClick={onSignUp}
           >
             Sign Up
           </Button>

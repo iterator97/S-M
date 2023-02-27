@@ -13,10 +13,16 @@ export const router = createBrowserRouter([
     path: "/dashboard",
     element: <DashboardLayout />,
     children: [
-      { path: "project/:id/subSpace/:id", element: <SubProject /> },
+      { path: "project/:id/subProject/:subId", element: <SubProject /> },
       { path: "project/:id", element: <EditProject /> },
-      { path: "subSpace/:id/newTask", element: <CreateNewTask /> },
-      { path: "subSpace/:id/editTask/:taskId", element: <EditWorkTask /> },
+      {
+        path: "project/:id/subProject/:subId/newTask",
+        element: <CreateNewTask />,
+      },
+      {
+        path: "project/:id/subProject/:subId/editTask/:taskId",
+        element: <EditWorkTask />,
+      },
       { path: "newSpace", element: <NewSpace /> },
     ],
   },

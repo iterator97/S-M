@@ -2,7 +2,7 @@
 
 using Domain;
 
-namespace Application.DTO
+namespace Application.Dto
 {
     public class EditWorkTaskDto
     {

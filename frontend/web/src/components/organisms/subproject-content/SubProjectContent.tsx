@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { Container } from "@mui/material";
-import TasksColumn from "../tasks-column/TasksColumn";
+import TasksColumns from "../tasks-columns/TasksColumns";
 
 const SubProjectContent = (props: any) => {
   return (
@@ -16,16 +16,16 @@ const SubProjectContent = (props: any) => {
       <Container>
         <Grid container spacing={2}>
           <Grid item xs={3}>
-            <TasksColumn Status={0} />
+            <TasksColumns Status={0} />
           </Grid>
           <Grid item xs={3}>
-            <TasksColumn Status={1} />
+            <TasksColumns Status={1} />
           </Grid>
           <Grid item xs={3}>
-            <TasksColumn Status={2} />
+            <TasksColumns Status={2} />
           </Grid>
           <Grid item xs={3}>
-            <TasksColumn Status={3} />
+            <TasksColumns Status={3} />
           </Grid>
         </Grid>
       </Container>

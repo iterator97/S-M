@@ -1,5 +1,5 @@
 ﻿using API.Services;
-using Application.DTO;
+using Application.Dto;
 using Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -61,6 +61,7 @@ namespace API.Controllers
                 Email = registerDto.Email,
                 Name = registerDto.Name,
                 Surname = registerDto.Surname,
+                UserName = registerDto.Name + registerDto.Surname
 
             };
 

@@ -37,6 +37,8 @@ interface AddWorkTaskPopoverProps {
 
 function CreateNewTask(props: AddWorkTaskPopoverProps) {
   let params = useParams();
+  console.log(params);
+
   const dispatch = useDispatch<AppDispatch>();
   const [workTaskTitle, setWorkTaskTitle] = useState<any>("");
   const [workTaskDescription, setWorkTaskDescription] = useState<any>("");

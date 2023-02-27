@@ -1,5 +1,5 @@
 ﻿using Application.Core;
-using Application.DTO;
+using Application.Dto.Project;
 using Application.Interfaces;
 using Application.Profiles;
 using AutoMapper;
@@ -57,8 +57,8 @@ namespace Application.Projects
                     Id = id,
                     Name = request.NewProject.Name,
                     Description = request.NewProject.Description,
-                    //StartDate = request.NewProject.StartDate,
-                    //EndDate = request.NewProject.EndDate,
+                    StartDate = request.NewProject.StartDate,
+                    EndDate = request.NewProject.EndDate,
                     ProjectAttendees = new List<ProjectAttendee>()
                     {
                         new ProjectAttendee()

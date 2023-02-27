@@ -1,5 +1,5 @@
 ﻿using Application.Core;
-using Application.DTO;
+using Application.Dto;
 using Domain;
 using MediatR;
 using Persistence;

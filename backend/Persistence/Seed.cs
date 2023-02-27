@@ -77,7 +77,7 @@ namespace Persistence
                 await context.Projects.AddRangeAsync(spaces);
             }
 
-            // SubSpaces 
+            // SubProjects 
             if (!context.SubProjects.Any())
             {
                 var subSpaces = new List<SubProject>

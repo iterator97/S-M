@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Dto
+namespace Application.Dto.Attndee
 {
-    public class SubProjectDto
+    public class ProjectAttendeeDto
     {
         public string Id { get; set; }
-        public string Name { get; set; }
     }
 }

@@ -23,17 +23,28 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { getProject } from "../../../store/projects/actions/getProject";
 
 function EditProject() {
+  // Hooks
   let params = useParams();
   const dispatch = useDispatch();
 
-  const selectedProject = useAppSelector((state) =>
-    state.projects.projects?.filter((x) => x.id == params.id)
+  const [selectedProject, setSelectedProject] = useState(
+    useAppSelector((state) =>
+      state.projects.projects?.filter((x) => x.id == params.id)
+    )
   );
+  const temp2 = useAppSelector((state) => state.projects.selectedProject[0]);
 
-  const [otherUsers, setOtherUsers] = useState(
-    useAppSelector((state) => state.projects.otherUsers)
+  console.log("DUPA");
+  console.log(selectedProject);
+  console.log(temp2);
+
+  const [name, setName] = useState(selectedProject[0].name);
+
+  const [description, setDescription] = useState(
+    selectedProject[0].description
   );
 
   const [startDate, setStartDate] = React.useState(
@@ -42,12 +53,13 @@ function EditProject() {
   const [endDate, setEndDate] = React.useState(
     dayjs(selectedProject[0].endDate)
   );
-  const [name, setName] = useState(selectedProject[0].name);
-  const [description, setDescription] = useState(
-    selectedProject[0].description
+  const [otherUsers, setOtherUsers] = useState(
+    useAppSelector((state) => state.projects.otherUsers)
   );
 
-  /////////////////////////////////////////////////////////////////////
+  const [count, setCount] = React.useState("");
+
+  const [dataSource, setDataSource] = useState(selectedProject[0].attendes);
 
   const components = {
     body: {
@@ -56,11 +68,7 @@ function EditProject() {
     },
   };
 
-  const [dataSource, setDataSource] = useState(selectedProject[0].attendes);
-
-  console.log("DUpa");
-  console.log(otherUsers);
-
+  // Functions
   const handleDelete = (key) => {
     const newData = dataSource.filter((item) => item.id !== key);
     setDataSource(newData);
@@ -109,22 +117,22 @@ function EditProject() {
     };
   });
 
-  //////////////////////////////
-  const [age, setAge] = React.useState("");
-
   const handleChange = (event) => {
-    setAge(event.target.value);
+    setCount(event.target.value);
   };
 
   const handleUserAdd = () => {
-    let newOtherUsers = otherUsers.filter((x) => x.id !== age.id);
+    let newOtherUsers = otherUsers.filter((x) => x.id !== count.id);
     setOtherUsers(newOtherUsers);
-    setDataSource([...dataSource, age]);
+    setDataSource([...dataSource, count]);
   };
 
+  const onProjectSave = () => {};
+
   useEffect(() => {
+    dispatch(getProject(params.id));
     dispatch(getOtherParticipants(params.id));
-  }, []);
+  }, [params.id]);
 
   return (
     <>
@@ -182,22 +190,40 @@ function EditProject() {
               />
             </LocalizationProvider>
           </Item>
-          <Item>
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Użytkownik</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={age}
-                label="Użytkownik"
-                onChange={handleChange}
-              >
-                {otherUsers.map((item) => {
-                  return <MenuItem value={item}>{item.surname}</MenuItem>;
-                })}
-              </Select>
-            </FormControl>
-            <Button onClick={handleUserAdd}>Dodaj użytkownika</Button>
+          <Item
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+            }}
+          >
+            <Item
+              sx={{
+                width: "70% !important",
+                border: "1px solid red",
+              }}
+            >
+              <FormControl>
+                <InputLabel id="demo-simple-select-label">
+                  Użytkownik
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={count}
+                  label="Użytkownik"
+                  onChange={handleChange}
+                >
+                  {otherUsers.map((item) => {
+                    return <MenuItem value={item}>{item.surname}</MenuItem>;
+                  })}
+                </Select>
+              </FormControl>
+              <Item>
+                <Button type="primary" onClick={handleUserAdd}>
+                  Dodaj użytkownika
+                </Button>
+              </Item>
+            </Item>
           </Item>
           <Item>
             <Container>
@@ -213,6 +239,9 @@ function EditProject() {
                 </div>
               </div>
             </Container>
+          </Item>
+          <Item>
+            <Button onClick={onProjectSave}>Zapisz zmiany</Button>
           </Item>
         </Stack>
       </Box>

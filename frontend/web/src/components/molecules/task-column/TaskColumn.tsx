@@ -42,7 +42,7 @@ const TaskColumn = (props: TaskProps) => {
         }
       />
       <Button onClick={() => navigate("editTask/" + props.data.id)}>
-        Edit task
+        Edytuj
       </Button>
       <Popover
         open={props.modal}

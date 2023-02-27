@@ -27,8 +27,8 @@ export default function SubProject() {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    if (params.id) {
-      dispatch(getSubProjectData(params.id));
+    if (params.subId) {
+      dispatch(getSubProjectData(params.subId));
     }
   }, [params.id]);
 

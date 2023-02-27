@@ -16,6 +16,7 @@ public class DataContext : IdentityDbContext<AppUser>
     public DbSet<WorkTask> WorkTasks { get; set; }
     public DbSet<SubTask> SubTasks { get; set; }
     public DbSet<AppUser> AppUsers { get; set; }
+    public DbSet<ProjectAttendee> ProjectAttendees { get; set; }
     public DbSet<WorkTaskDependency> WorkTaskDependencies { get; set; }
 
 
