@@ -10,7 +10,11 @@ import SubSpace from "../../organisms/subproject-content/SubProjectContent";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../store/store";
 
-import { AddWorkTaskPopover, SubProjectContent } from "../../organisms";
+import {
+  AddWorkTaskPopover,
+  SubProjectContent,
+  TasksColumns,
+} from "../../organisms";
 import { getSubProjectData } from "../../../store/subProjects/actions/getSubProjectData";
 
 function a11yProps(index: any) {
@@ -56,7 +60,34 @@ export default function SubProject() {
           </Button>
         </Grid>
       </Box>
-      <SubProjectContent />
+      <Container
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        <Grid container spacing={2}>
+          <Grid
+            item
+            xs={3}
+            sx={{
+              width: "25%",
+              border: "1px solid purple",
+            }}
+          >
+            <TasksColumns Status={0} />
+          </Grid>
+          <Grid item xs={3}>
+            <TasksColumns Status={1} />
+          </Grid>
+          <Grid item xs={3}>
+            <TasksColumns Status={2} />
+          </Grid>
+          <Grid item xs={3}>
+            <TasksColumns Status={3} />
+          </Grid>
+        </Grid>
+      </Container>
     </Box>
   );
 }

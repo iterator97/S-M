@@ -1,5 +1,5 @@
-﻿using Application.Core;
-using Application.Dto;
+﻿
+using Application.Core;
 using Application.Dto.Project;
 using Application.Interfaces;
 using AutoMapper;
@@ -7,12 +7,6 @@ using Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Projects
 {
@@ -38,9 +32,9 @@ namespace Application.Projects
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
-                //var projectToEdit = await context.Projects.FirstOrDefaultAsync(x => x.Id.ToString() == request.ProjectToEdit.Id);
+                var projectToEdit = await context.Projects.FirstOrDefaultAsync(x => x.Id.ToString() == request.ProjectToEdit.Id);
 
-                var projectToEdit = await context.Projects.FindAsync(new Guid(request.ProjectToEdit.Id));
+                //var projectToEdit = await context.Projects.FindAsync(new Guid(request.ProjectToEdit.Id));
 
                 var owner = await context.Users.FindAsync(request.ProjectToEdit.OwnerId);
 
@@ -71,8 +65,29 @@ namespace Application.Projects
                     projectToEdit.EndDate = request.ProjectToEdit.EndDate;
                 }
 
-                //// TODO -> rebuilt 
-                context.Remove(projectToEdit);
+                // Set attendee to zero 
+                var temp2 = await context.Projects.Where(x => x.Id.ToString() == request.ProjectToEdit.Id).Include(a => a.ProjectAttendees).FirstOrDefaultAsync();
+                temp2.ProjectAttendees = new List<ProjectAttendee>() { };
+
+                foreach (var item in request.ProjectToEdit.ProjectAttendees)
+                {
+                    if (item.Id != null)
+                    {
+                        var newAttende = new ProjectAttendee()
+                        {
+                            AppUserId = item.Id,
+                            Project = projectToEdit,
+                            IsOwner = false,
+                        };
+                        projectToEdit.ProjectAttendees.Add(newAttende);
+                    }
+                }
+
+                // Ad owner
+
+                ////// TODO -> rebuilt 
+                //var zz = context.ProjectAttendees.ToListAsync();
+
 
                 var result = await context.SaveChangesAsync() > 0;
 

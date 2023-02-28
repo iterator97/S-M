@@ -12,12 +12,21 @@ import { Paper } from "@mui/material";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../store/store";
+import { useNavigate } from "react-router-dom";
+import { ISignUp } from "../../../models";
+import { signUp } from "../../../store/common/actions/signUp";
+import { useAppSelector } from "../../../store/hooks";
 
 interface SingUpProps {
   changeMode?: any;
 }
 
 export default function SignUp(props: SingUpProps) {
+  // Hooks
+  let navigate = useNavigate();
+  const signedIn = useAppSelector((state) => state.common.signedIn);
+
+  // Variablese
   const [Name, setName] = useState<string>("");
   const [Surname, setSurname] = useState<string>("");
   const [Email, setEmail] = useState<string>("");
@@ -26,28 +35,17 @@ export default function SignUp(props: SingUpProps) {
   const dispatch = useDispatch<AppDispatch>();
 
   const onSignUp = async () => {
-    const response = await fetch(
-      "http://localhost:44352/api/account/register",
-      {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          Name,
-          Surname,
-          Email,
-          Password,
-        }),
+    let signUpValues: ISignUp = {
+      name: Name,
+      surname: Surname,
+      email: Email,
+      password: Password,
+    };
+    dispatch(signUp(signUpValues)).then(() => {
+      if (signedIn) {
+        return navigate("/dashboard");
       }
-    );
-    let data = await response.json();
-
-    if (response.status === 200) {
-      console.log(data);
-    } else {
-    }
+    });
   };
 
   return (
@@ -119,15 +117,9 @@ export default function SignUp(props: SingUpProps) {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
-              />
-            </Grid>
+            <Grid item xs={12}></Grid>
           </Grid>
           <Button
-            type="submit"
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}

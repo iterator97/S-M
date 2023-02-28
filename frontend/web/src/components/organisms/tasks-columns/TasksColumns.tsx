@@ -38,9 +38,7 @@ const TasksColumns = (props: TasksColumn) => {
         <Typography variant="h5" component="h2" style={{ textAlign: "center" }}>
           {renderSwitch(props.Status)}
         </Typography>
-        <List
-          sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
-        >
+        <List sx={{ width: "100%", bgcolor: "background.paper" }}>
           {workTasks && workTasks.length > 0 ? (
             workTasks.map((item: any) => {
               return (

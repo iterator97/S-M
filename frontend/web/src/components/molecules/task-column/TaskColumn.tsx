@@ -20,11 +20,21 @@ interface TaskProps {
 }
 const TaskColumn = (props: TaskProps) => {
   const navigate = useNavigate();
+
   console.log(props.data);
+
   return (
-    <ListItem alignItems="flex-start">
+    <ListItem
+      alignItems="flex-start"
+      sx={{
+        border: "1px solid green",
+      }}
+    >
       <ListItemAvatar>
-        <Avatar alt="Michal Kalisiak" src="/static/images/avatar/1.jpg" />
+        <Avatar
+          alt={props.data.assignWorker?.email}
+          src="/static/images/avatar/1.jpg"
+        />
       </ListItemAvatar>
       <ListItemText
         primary={props.data.content}
