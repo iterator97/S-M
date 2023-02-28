@@ -18,14 +18,15 @@ import { createNewProject } from "../../../store/projects/actions/createNewProje
 import { getProjects } from "../../../store/projects/actions/getProjects";
 import { EditableRow } from "./EditableRow";
 import { EditableCell } from "./EditableCell";
+import { ToastContainer, toast } from "react-toastify";
 
 const NewProject = () => {
-  const [startDate, setStartDate] = React.useState(dayjs("2022-04-07"));
-  const [endDate, setEndDate] = React.useState(dayjs("2022-04-07"));
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
+  const [StartDate, setStartDate] = React.useState(dayjs("2022-04-07"));
+  const [EndDate, setEndDate] = React.useState(dayjs("2022-04-07"));
+  const [Name, setName] = useState("");
+  const [Description, setDescription] = useState("");
 
-  const [dataSource, setDataSource] = useState([
+  const [SubProjects, setDataSource] = useState([
     {
       key: "0",
       name: "Sub project 1",
@@ -39,20 +40,20 @@ const NewProject = () => {
   const dispatch = useDispatch();
 
   const handleDelete = (key) => {
-    const newData = dataSource.filter((item) => item.key !== key);
+    const newData = SubProjects.filter((item) => item.key !== key);
     setDataSource(newData);
   };
 
   const handleAdd = () => {
     const newData = {
       key: count,
-      name: `New sub project ${count}`,
+      name: `Sub project ${count}`,
     };
-    setDataSource([...dataSource, newData]);
+    setDataSource([...SubProjects, newData]);
     setCount(count + 1);
   };
   const handleSave = (row) => {
-    const newData = [...dataSource];
+    const newData = [...SubProjects];
     const index = newData.findIndex((item) => row.key === item.key);
     const item = newData[index];
     newData.splice(index, 1, {
@@ -83,7 +84,7 @@ const NewProject = () => {
       title: "Akcja",
       dataIndex: "operation",
       render: (_, record) =>
-        dataSource.length >= 1 ? (
+        SubProjects.length >= 1 ? (
           <Popconfirm
             title="Jesteś pewnien?"
             onConfirm={() => handleDelete(record.key)}
@@ -112,22 +113,66 @@ const NewProject = () => {
 
   const createProject = () => {
     let obj = {
-      Name: name,
-      Description: description,
-      StartDate: startDate,
-      EndDate: endDate,
-      SubProjects: dataSource,
+      Name: Name,
+      Description: Description,
+      StartDate: StartDate,
+      EndDate: EndDate,
+      SubProjects: SubProjects,
     };
 
     console.log(obj);
 
-    dispatch(createNewProject(obj));
-    dispatch(getProjects(localStorage.getItem("token")));
+    const create = async () => {
+      const response = await fetch("http://localhost:44352/api/project", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({
+          Name,
+          Description,
+          StartDate,
+          EndDate,
+          SubProjects,
+        }),
+      });
+      let data = await response.json();
+      if (response.status === 200) {
+        return data;
+      } else {
+        console.log("Dupa blada");
+      }
+    };
+
+    create()
+      .then((data) => {
+        toast.success("Projekty utworzony!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        dispatch(getProjects(localStorage.getItem("token")));
+      })
+      .then(() => {
+        setStartDate("0000-00-00");
+        setEndDate("0000-00-00");
+        setName("");
+        setDescription("");
+        setDataSource([]);
+      });
   };
 
   return (
     <Box>
       {" "}
+      <ToastContainer />
       <Stack spacing={2}>
         <Item>
           <Typography variant="h5">Stwórz nowy projekt</Typography>
@@ -138,7 +183,7 @@ const NewProject = () => {
             id="outlined-required"
             label="Wymagane"
             defaultValue="Uzupełnij"
-            value={name}
+            value={Name}
             onChange={(newValue) => {
               setName(newValue.target.value);
             }}
@@ -151,7 +196,7 @@ const NewProject = () => {
             multiline
             rows={4}
             defaultValue="Uzupełnij"
-            value={description}
+            value={Description}
             onChange={(newValue) => {
               setDescription(newValue.target.value);
             }}
@@ -162,7 +207,7 @@ const NewProject = () => {
             <DateTimePicker
               renderInput={(props) => <TextField {...props} />}
               label="Data startu projektu"
-              value={startDate}
+              value={StartDate}
               onChange={(newValue) => {
                 setStartDate(newValue);
               }}
@@ -174,7 +219,7 @@ const NewProject = () => {
             <DateTimePicker
               renderInput={(props) => <TextField {...props} />}
               label="Data zakończenia projektu"
-              value={endDate}
+              value={EndDate}
               onChange={(newValue) => {
                 setEndDate(newValue);
               }}
@@ -198,7 +243,7 @@ const NewProject = () => {
                   components={components}
                   rowClassName={() => "editable-row"}
                   bordered
-                  dataSource={dataSource}
+                  dataSource={SubProjects}
                   columns={columns}
                 />
               </div>

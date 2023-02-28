@@ -34,7 +34,7 @@ export default function DashboardLayout() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    // dispatch(getProjects(localStorage.getItem("token")));
+    dispatch(getProjects(localStorage.getItem("token")));
   }, []);
 
   return (
