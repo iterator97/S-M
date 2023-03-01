@@ -13,11 +13,13 @@ import Popover from "@mui/material/Popover";
 import { WorkTaskPopover } from "../../atoms";
 import { Box, Button, Container } from "@mui/material";
 import { Select } from "antd";
+import { changeWorkTaskStatus } from "../../../hooks/changeWorkTaskStatus";
 
 interface TaskProps {
   data?: any;
   modal: boolean;
   setModal?: any;
+  refreshWorkTask?: any;
 }
 const TaskColumn = (props: TaskProps) => {
   const navigate = useNavigate();
@@ -25,6 +27,14 @@ const TaskColumn = (props: TaskProps) => {
 
   const handleChange = (value: number) => {
     console.log(`selected ${value}`);
+    changeWorkTaskStatus(props.data.id, value).then((data) => {
+      if (data == 1) {
+        // zmieniono
+        props.refreshWorkTask();
+      } else {
+        // pokaz error
+      }
+    });
   };
 
   return (

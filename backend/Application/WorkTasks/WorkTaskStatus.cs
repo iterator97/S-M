@@ -3,6 +3,7 @@ using Application.Dto;
 using Application.Dto.WorkTask;
 using Domain;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 
 namespace Application.WorkTasks
@@ -36,6 +37,24 @@ namespace Application.WorkTasks
                 if (request.change.Status != 3)
                 {
                     workTask.Status = (Status)request.change.Status;
+                }
+
+                if (request.change.Status == 3)
+                {
+                    var dependencies = await _context.WorkTaskDependencies.Where(x => x.WorkTaskId.ToString() == request.change.Id).ToListAsync();
+
+                    if (dependencies.Any())
+                    {
+                        foreach (var item in dependencies)
+                        {
+
+                            if (item.WorkTask.Status != Status.Done)
+                            {
+                                Result<Unit>.Failure("Nie można ukończyć zadania ponieważ zadanie zależne nie jest ukonczone");
+                            }
+
+                        }
+                    }
                 }
 
                 var result = await _context.SaveChangesAsync() > 0;

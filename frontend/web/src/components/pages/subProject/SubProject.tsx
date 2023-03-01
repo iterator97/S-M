@@ -20,6 +20,14 @@ export default function SubProject() {
     });
   }, [params.subId]);
 
+  const refreshWorkTask = () => {
+    getProjectWorkTask(params.subId).then((data) => {
+      if (data) {
+        setWorkTasks(data);
+      }
+    });
+  };
+
   return (
     <Box sx={{ width: "100%" }}>
       <Box
@@ -54,7 +62,11 @@ export default function SubProject() {
         }}
       >
         <Grid item xs={3} sx={{}}>
-          <TasksColumns workTasks={workTasks} Status={0} />
+          <TasksColumns
+            refreshWorkTask={refreshWorkTask}
+            workTasks={workTasks}
+            Status={0}
+          />
         </Grid>
         <Grid item xs={3}>
           <TasksColumns workTasks={workTasks} Status={1} />

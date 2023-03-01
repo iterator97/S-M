@@ -86,7 +86,7 @@ namespace Application.WorkTasks
 
                                 foreach (var dep in dependenciesToCheck)
                                 {
-                                    if (dep.DependencyId.ToString() == request.workTask.previousId)
+                                    if (dep.WorkTaskDependencyId.ToString() == request.workTask.previousId)
                                     {
                                         return Result<Unit>.Failure("Nie dodać zależności" + workTaskToCheck.Content + "ponieważ jest zależne od aktualne zadania");
                                     }

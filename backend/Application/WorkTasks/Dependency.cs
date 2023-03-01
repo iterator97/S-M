@@ -88,14 +88,14 @@ namespace Application.WorkTasks
 
                         foreach (var el in dependencyToCheck)
                         {
-                            if (el.DependencyId == request.workTask.previousId)
+                            if (el.WorkTaskDependencyId == request.workTask.previousId)
                             {
-                                return Result<Unit>.Failure("Nie można dodać zależności ponieważ jest zależne od elementu" + el.DependencyId);
+                                return Result<Unit>.Failure("Nie można dodać zależności ponieważ jest zależne od elementu" + el.WorkTaskDependencyId);
                             }
                             WorkTaskDependency newDep = new WorkTaskDependency()
                             {
                                 WorkTaskId = new Guid(request.workTask.previousId),
-                                DependencyId = el.Id.ToString(),
+                                WorkTaskDependencyId = el.Id.ToString(),
                             };
                             _context.WorkTaskDependencies.Add(newDep);
                         }

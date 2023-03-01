@@ -8,6 +8,7 @@ import { TaskColumn } from "../../molecules";
 interface TasksColumn {
   workTasks?: any;
   Status?: number;
+  refreshWorkTask?: any;
 }
 
 const TasksColumns = (props: TasksColumn) => {
@@ -41,6 +42,7 @@ const TasksColumns = (props: TasksColumn) => {
             tasks.map((item: any) => {
               return (
                 <TaskColumn
+                  refreshWorkTask={props.refreshWorkTask}
                   key={item.id}
                   data={item}
                   modal={modal}
