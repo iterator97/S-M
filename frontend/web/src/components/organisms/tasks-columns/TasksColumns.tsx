@@ -2,20 +2,18 @@ import { Box, Container } from "@mui/material";
 import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
-import { IWorkTask } from "../../../models";
 import { useAppSelector } from "../../../store/hooks";
 import { TaskColumn } from "../../molecules";
 
 interface TasksColumn {
+  workTasks?: any;
   Status?: number;
 }
 
 const TasksColumns = (props: TasksColumn) => {
   const [modal, setModal] = useState(false);
 
-  const workTasks = useAppSelector((state) =>
-    state.subProject.workTasks?.filter((x: any) => x.status == props.Status)
-  );
+  const tasks = props.workTasks?.filter((x: any) => x.status == props.Status);
 
   const renderSwitch = (param: number | undefined) => {
     switch (param) {
@@ -39,8 +37,8 @@ const TasksColumns = (props: TasksColumn) => {
           {renderSwitch(props.Status)}
         </Typography>
         <List sx={{ width: "100%", bgcolor: "background.paper" }}>
-          {workTasks && workTasks.length > 0 ? (
-            workTasks.map((item: any) => {
+          {tasks && tasks.length > 0 ? (
+            tasks.map((item: any) => {
               return (
                 <TaskColumn
                   key={item.id}

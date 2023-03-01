@@ -115,9 +115,7 @@ function EditProject() {
       endDate,
       "test",
       dataSource
-    ).then((data) => {
-      console.log(data);
-    });
+    ).then((data) => {});
   };
 
   useEffect(() => {

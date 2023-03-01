@@ -1,4 +1,5 @@
 ﻿using Application.Dto;
+using Application.Dto.WorkTask;
 using Application.WorkTasks;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
@@ -7,13 +8,17 @@ namespace API.Controllers
 {
     public class WorkTaskController : BaseApiController
     {
-        //// Done
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetWorkTaskById(Guid id)
-        //{
-        //    return HandleResult(await Mediator.Send(new Details.Query { Id = id }));
-        //}
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetWorkTaskById(Guid id)
+        {
+            return HandleResult(await Mediator.Send(new Details.Query { Id = id }));
+        }
 
+        [HttpPost]
+        public async Task<IActionResult> ChangeStatus(ChangeStatusDto statusDto)
+        {
+            return HandleResult(await Mediator.Send(new WorkTaskStatus.Command { change = statusDto }));
+        }
 
         //[HttpDelete("{id}")]
         //public async Task<IActionResult> RemoveWorkTask(Guid id)

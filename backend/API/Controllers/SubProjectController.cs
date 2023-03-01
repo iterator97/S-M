@@ -6,10 +6,9 @@ namespace API.Controllers
     public class SubProjectController : BaseApiController
     {
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetSubProjectData(string id)
+        public async Task<IActionResult> GetSubProjectWorkTasks(string id)
         {
             return HandleResult(await Mediator.Send(new List.Query { SubSpaceId = id }));
-
         }
 
         //[HttpGet("users/{id}")]

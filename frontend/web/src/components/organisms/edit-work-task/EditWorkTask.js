@@ -27,9 +27,6 @@ const EditWorkTask = () => {
     state.subSpace.workTasks?.filter((x) => x.id == params.taskId)
   );
 
-  console.log("workTask");
-  console.log(workTask);
-
   const workTaskRest = useAppSelector((state) =>
     state.subSpace.workTasks?.filter((x) => x.id != params.taskId)
   );

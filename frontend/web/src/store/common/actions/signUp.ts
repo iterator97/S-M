@@ -23,7 +23,6 @@ export const signUp = createAsyncThunk(
       );
       let data = await response.json();
 
-      console.log(data);
       if (response.status === 200) {
         localStorage.setItem("token", data.token);
         return data;

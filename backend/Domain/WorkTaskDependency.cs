@@ -7,6 +7,6 @@
         public Guid WorkTaskId { get; set; }
         public WorkTask WorkTask { get; set; }
 
-        public string DependencyId { get; set; }
+        public string WorkTaskDependencyId { get; set; }
     }
 }

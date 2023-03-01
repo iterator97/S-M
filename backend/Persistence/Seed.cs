@@ -146,16 +146,49 @@ namespace Persistence
                         new WorkTaskDependency
                         {
                             Id = new Guid(),
-                            DependencyId = "cbd4e0e9-289b-4240-8228-9bcab8e0158b"
+                            WorkTaskDependencyId = "cbd4e0e9-289b-4240-8228-9bcab8e0158b"
                         }
                     }
                 },
+                ///
+                 new WorkTask
+                {
+                    Id = new Guid("add4e0e9-289b-4240-8228-9bcab8e0158b"),
+                    Content = "Sample content 1",
+                    SubContent = "Sample subcontent 1",
+                    Status = Status.Assigned,
+                    SubProjectId= new Guid("78fe18b7-20f7-4883-a35a-c0f2ccbfb910"),
+                    AssignWorkerId = "2759ca58-5b55-4ba2-bd05-47999bdb2b21",
+                    AssignWorker = users[0],
+                    CreatedDate = DateTime.Now,
+                    EndDate = new DateTime(2023, 10, 20),
+                },
+                new WorkTask
+                {
+                    Id = new Guid("b2d6fa6f-e5a1-4406-adf9-c73a86af5b92"),
+                    Content = "Sample content 2",
+                    SubContent = "Sample subcontent 2",
+                    Status = Status.Done,
+                    SubProjectId= new Guid("78fe18b7-20f7-4883-a35a-c0f2ccbfb910"),
+                    AssignWorkerId = "2759ca58-5b55-4ba2-bd05-47999bdb2b21",
+                    AssignWorker = users[0],
+                    CreatedDate = DateTime.Now,
+                    EndDate = new DateTime(2023, 10, 20),
+                    WorkTaskDependencyList= new List<WorkTaskDependency> {
+                        new WorkTaskDependency
+                        {
+                            Id = new Guid(),
+                            WorkTaskDependencyId = "cbd4e0e9-289b-4240-8228-9bcab8e0158b"
+                        }
+                    }
+                },
+                ///
                  new WorkTask
                 {
                     Id = new Guid("cbd4e0e9-289b-4240-8338-9bcab8e0158b"),
                     Content = "Sample content 1",
                     SubContent = "Sample subcontent 1",
-                    Status = Status.NotDefinded,
+                    Status = Status.InProgress,
                     SubProjectId= new Guid("78fe18b7-20f7-4883-a35a-c0f2ccbfb910"),
                     CreatedDate = DateTime.Now,
                     EndDate = new DateTime(2023, 10, 20),

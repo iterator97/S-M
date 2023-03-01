@@ -97,10 +97,10 @@ namespace Application.WorkTasks
                     }
                 }
 
-                if ((int)request.workTask.Status != (int)Status.Done)
-                {
-                    workTaskToEdit.Status = (Status)request.workTask.Status;
-                }
+                //if ((int)request.workTask.Status != (int)WorkTaskStatus.Done)
+                //{
+                //    workTaskToEdit.Status = (WorkTaskStatus)request.workTask.Status;
+                //}
 
                 var result = await _context.SaveChangesAsync() > 0;
 
