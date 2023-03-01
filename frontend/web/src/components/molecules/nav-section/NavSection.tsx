@@ -71,7 +71,7 @@ export default function NavSection(props: any) {
                     <Menu.Item>
                       <StyledNavItem
                         component={RouterLink}
-                        to={"project/" + x.id}
+                        to={"project/" + x.id + "/edit"}
                         sx={{
                           "&.active": {
                             color: "text.primary",

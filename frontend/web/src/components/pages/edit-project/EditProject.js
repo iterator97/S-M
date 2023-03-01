@@ -16,51 +16,30 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { useDispatch, useSelector } from "react-redux";
-import { getOtherParticipants } from "../../../store/projects/actions/getOtherParticipants";
 import { EditableRow } from "../new-project/EditableRow";
 import { EditableCell } from "../new-project/EditableCell";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { getProject } from "../../../store/projects/actions/getProject";
+import { getProject } from "../../../hooks/getProject";
+import { getParticipants } from "../../../hooks/getParticipants";
+import { saveproject } from "../../../hooks/saveProject";
 
 function EditProject() {
   // Hooks
-  let params = useParams();
+  const params = useParams();
   const dispatch = useDispatch();
 
-  const [selectedProject, setSelectedProject] = useState(
-    useAppSelector((state) =>
-      state.projects.projects?.filter((x) => x.id == params.id)
-    )
-  );
-  const temp2 = useAppSelector((state) => state.projects.selectedProject[0]);
-
-  console.log("DUPA");
-  console.log(selectedProject);
-  console.log(temp2);
-
-  const [name, setName] = useState(selectedProject[0].name);
-
-  const [description, setDescription] = useState(
-    selectedProject[0].description
-  );
-
-  const [startDate, setStartDate] = React.useState(
-    dayjs(selectedProject[0].startDate)
-  );
-  const [endDate, setEndDate] = React.useState(
-    dayjs(selectedProject[0].endDate)
-  );
-  const [otherUsers, setOtherUsers] = useState(
-    useAppSelector((state) => state.projects.otherUsers)
-  );
-
-  const [count, setCount] = React.useState("");
-
-  const [dataSource, setDataSource] = useState(selectedProject[0].attendes);
-
+  // Variables
+  const [selectedProject, setSelectedProject] = useState();
+  const [name, setName] = useState();
+  const [description, setDescription] = useState();
+  const [startDate, setStartDate] = React.useState();
+  const [endDate, setEndDate] = React.useState();
+  const [otherUsers, setOtherUsers] = useState();
+  const [count, setCount] = React.useState();
+  const [dataSource, setDataSource] = useState();
   const components = {
     body: {
       row: EditableRow,
@@ -127,15 +106,39 @@ function EditProject() {
     setDataSource([...dataSource, count]);
   };
 
-  const onProjectSave = () => {};
+  const onProjectSave = () => {
+    saveproject(
+      selectedProject.id,
+      name,
+      description,
+      startDate,
+      endDate,
+      "test",
+      dataSource
+    ).then((data) => {
+      console.log(data);
+    });
+  };
 
   useEffect(() => {
-    dispatch(getProject(params.id));
-    dispatch(getOtherParticipants(params.id));
+    getProject(params.id).then((data) => {
+      console.log(selectedProject);
+      setSelectedProject(data[0]);
+      setName(data[0].name);
+      setDescription(data[0].description);
+      setStartDate(dayjs(data[0].startDate));
+      setEndDate(dayjs(data[0].endDate));
+      setDataSource(data[0].attendes);
+    });
+
+    getParticipants(params.id).then((data) => {
+      setOtherUsers(data);
+    });
   }, [params.id]);
 
   return (
     <>
+      {" "}
       <Box>
         <Stack spacing={2}>
           <Item>
@@ -213,9 +216,10 @@ function EditProject() {
                   label="Użytkownik"
                   onChange={handleChange}
                 >
-                  {otherUsers.map((item) => {
-                    return <MenuItem value={item}>{item.surname}</MenuItem>;
-                  })}
+                  {otherUsers &&
+                    otherUsers.map((item) => {
+                      return <MenuItem value={item}>{item.surname}</MenuItem>;
+                    })}
                 </Select>
               </FormControl>
               <Item>

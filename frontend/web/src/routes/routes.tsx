@@ -14,7 +14,7 @@ export const router = createBrowserRouter([
     element: <DashboardLayout />,
     children: [
       { path: "project/:id/subProject/:subId", element: <SubProject /> },
-      { path: "project/:id", element: <EditProject /> },
+      { path: "project/:id/edit", element: <EditProject /> },
       {
         path: "project/:id/subProject/:subId/newTask",
         element: <CreateNewTask />,

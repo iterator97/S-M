@@ -120,8 +120,6 @@ const NewProject = () => {
       SubProjects: SubProjects,
     };
 
-    console.log(obj);
-
     const create = async () => {
       const response = await fetch("http://localhost:44352/api/project", {
         method: "POST",
@@ -142,7 +140,7 @@ const NewProject = () => {
       if (response.status === 200) {
         return data;
       } else {
-        console.log("Dupa blada");
+        console.log("Err");
       }
     };
 

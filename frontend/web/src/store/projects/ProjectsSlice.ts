@@ -1,7 +1,6 @@
 import { getProjects } from "./actions/getProjects";
 import { createSlice } from "@reduxjs/toolkit";
 import { IProjectSlice } from "../../models";
-import { getOtherParticipants } from "./actions/getOtherParticipants";
 import { getProject } from "./actions/getProject";
 
 const initialState: IProjectSlice = {
@@ -33,21 +32,21 @@ const projectsSlice = createSlice({
     });
 
     // Get other participants
-    builder.addCase(getOtherParticipants.pending, (state, action) => {
-      state.loading = true;
-    });
-    builder.addCase(getOtherParticipants.fulfilled, (state, { payload }) => {
-      state.loading = false;
-      state.otherUsers = payload;
+    // builder.addCase(getOtherParticipants.pending, (state, action) => {
+    //   state.loading = true;
+    // });
+    // builder.addCase(getOtherParticipants.fulfilled, (state, { payload }) => {
+    //   state.loading = false;
+    //   state.otherUsers = payload;
 
-      return state;
-    });
-    builder.addCase(
-      getOtherParticipants.rejected,
-      (state, { payload }: any) => {
-        return state;
-      }
-    );
+    //   return state;
+    // });
+    // builder.addCase(
+    //   getOtherParticipants.rejected,
+    //   (state, { payload }: any) => {
+    //     return state;
+    //   }
+    // );
 
     // Get project data
     builder.addCase(getProject.pending, (state, action) => {
