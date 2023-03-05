@@ -40,11 +40,11 @@ namespace API.Controllers
             return HandleResult(await Mediator.Send(new Test.Command { WorkTaskId = workTaskId, DependencyId = dependencyId }));
         }
 
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> RemoveWorkTask(Guid id)
-        //{
-        //    return HandleResult(await Mediator.Send(new Delete.Command { Id = id }));
-        //}
+        [HttpDelete("removeDependency/{id}")]
+        public async Task<IActionResult> RemoveDependency(string id)
+        {
+            return HandleResult(await Mediator.Send(new RemoveDependency.Command { Id = id }));
+        }
 
         //[HttpPost]
         //public async Task<IActionResult> AddDependency(EditWorkTaskDto workTask)

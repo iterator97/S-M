@@ -111,8 +111,29 @@ function EditWorkTask() {
     },
   ];
 
-  const handeDependencyRemove = (e) => {
-    console.log(e);
+  const handeDependencyRemove = async (e) => {
+    const response = await fetch(
+      `http://localhost:44352/api/workTask/removeDependency/${e}`,
+      {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    if (response.status === 200) {
+      getWorkTaskDependencies(params.taskId).then((x) => {
+        setDependenciesDataSource(x);
+      });
+      getOtherWorkTaskDependencies(params.subId, params.taskId).then((y) => {
+        console.log(y);
+        setOtherDependencies(y);
+      });
+    } else {
+      return -1;
+    }
   };
 
   const columns = defaultColumns.map((col) => {
