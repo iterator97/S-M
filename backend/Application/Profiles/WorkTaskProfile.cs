@@ -21,5 +21,10 @@ namespace Application.Profiles
 
         public string AssignWorkerId { get; set; }
         public AppUserProfile AssignWorker { get; set; }
+
+        public List<SubTaskProfile> SubTasks { get; set; }
+
+        public string label { get; set; }
+        public string value { get; set; }
     }
 }

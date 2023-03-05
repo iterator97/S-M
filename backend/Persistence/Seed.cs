@@ -10,9 +10,9 @@ namespace Persistence
         {
             var users = new List<AppUser>
                 {
-                    new AppUser{Id= "2759ca58-5b55-4ba2-bd05-47999bdb2b21", Surname = "Bob", UserName = "bob", Email = "bob@test.com"},
-                    new AppUser{Id= "d140ae51-a6ca-450f-9edc-502e16a37523", Surname = "Tom", UserName = "tom", Email = "tom@test.com"},
-                    new AppUser{Id= "88d0863e-313a-4a35-82b1-278f1700fa36", Surname = "Jane", UserName = "jane", Email = "jane@test.com"},
+                    new AppUser{Id= "2759ca58-5b55-4ba2-bd05-47999bdb2b21", Name = "Jan", Surname = "Jowalski", UserName = "JanKowalski", Email = "jankowalski@gmail.com"},
+                    new AppUser{Id= "d140ae51-a6ca-450f-9edc-502e16a37523", Name = "Piotr", Surname = "Kaliski", UserName = "PiotrKaliski", Email = "piotrkaliski@gmail.com"},
+                    new AppUser{Id= "88d0863e-313a-4a35-82b1-278f1700fa36", Name = "Marek", Surname = "Zielinski", UserName = "MarekZielinski", Email = "marekzielinski@gmail.com"},
                 };
 
             if (!userManager.Users.Any())
@@ -130,6 +130,28 @@ namespace Persistence
                     AssignWorker = users[0],
                     CreatedDate = DateTime.Now,
                     EndDate = new DateTime(2023, 10, 20),
+                    SubTasks = new List<SubTask>()
+                    {
+                        new SubTask
+                        {
+                            Id = new Guid(),
+                            Description = "Sample subtask 1",
+                            IsDone= false,
+                        },
+                        new SubTask
+                        {
+                            Id = new Guid(),
+                            Description = "Sample subtask 2",
+                            IsDone= false,
+                        },
+                    },
+                    WorkTaskDependencyList= new List<WorkTaskDependency> {
+                        new WorkTaskDependency
+                        {
+                            Id = new Guid(),
+                            WorkTaskDependencyId = "a0d6fa6f-e5a1-4406-adf9-c73a86af5b92"
+                        }
+                    },
                 },
                 new WorkTask
                 {
@@ -142,15 +164,22 @@ namespace Persistence
                     AssignWorker = users[0],
                     CreatedDate = DateTime.Now,
                     EndDate = new DateTime(2023, 10, 20),
-                    WorkTaskDependencyList= new List<WorkTaskDependency> {
-                        new WorkTaskDependency
+                    SubTasks = new List<SubTask>()
+                    {
+                        new SubTask
                         {
                             Id = new Guid(),
-                            WorkTaskDependencyId = "cbd4e0e9-289b-4240-8228-9bcab8e0158b"
-                        }
+                            Description = "Sample subtask 1",
+                            IsDone= false,
+                        },
+                        new SubTask
+                        {
+                            Id = new Guid(),
+                            Description = "Sample subtask 2",
+                            IsDone= false,
+                        },
                     }
                 },
-                ///
                  new WorkTask
                 {
                     Id = new Guid("add4e0e9-289b-4240-8228-9bcab8e0158b"),
@@ -162,6 +191,21 @@ namespace Persistence
                     AssignWorker = users[0],
                     CreatedDate = DateTime.Now,
                     EndDate = new DateTime(2023, 10, 20),
+                    SubTasks = new List<SubTask>()
+                    {
+                        new SubTask
+                        {
+                            Id = new Guid(),
+                            Description = "Sample subtask 1",
+                            IsDone= false,
+                        },
+                        new SubTask
+                        {
+                            Id = new Guid(),
+                            Description = "Sample subtask 2",
+                            IsDone= false,
+                        },
+                    }
                 },
                 new WorkTask
                 {
@@ -174,21 +218,30 @@ namespace Persistence
                     AssignWorker = users[0],
                     CreatedDate = DateTime.Now,
                     EndDate = new DateTime(2023, 10, 20),
-                    WorkTaskDependencyList= new List<WorkTaskDependency> {
-                        new WorkTaskDependency
+                    SubTasks = new List<SubTask>()
+                    {
+                        new SubTask
                         {
                             Id = new Guid(),
-                            WorkTaskDependencyId = "cbd4e0e9-289b-4240-8228-9bcab8e0158b"
-                        }
+                            Description = "Sample subtask 1",
+                            IsDone= false,
+                        },
+                        new SubTask
+                        {
+                            Id = new Guid(),
+                            Description = "Sample subtask 2",
+                            IsDone= false,
+                        },
                     }
                 },
-                ///
                  new WorkTask
                 {
                     Id = new Guid("cbd4e0e9-289b-4240-8338-9bcab8e0158b"),
                     Content = "Sample content 1",
                     SubContent = "Sample subcontent 1",
                     Status = Status.InProgress,
+                    AssignWorkerId = "2759ca58-5b55-4ba2-bd05-47999bdb2b21",
+                    AssignWorker = users[0],
                     SubProjectId= new Guid("78fe18b7-20f7-4883-a35a-c0f2ccbfb910"),
                     CreatedDate = DateTime.Now,
                     EndDate = new DateTime(2023, 10, 20),
@@ -197,6 +250,8 @@ namespace Persistence
                 {
                     Id = new Guid("cbd4e0e9-289b-5340-8338-9bcab8e0158b"),
                     Content = "Sample content 1",
+                    AssignWorkerId = "2759ca58-5b55-4ba2-bd05-47999bdb2b21",
+                    AssignWorker = users[0],
                     SubContent = "Sample subcontent 1",
                     Status = Status.NotDefinded,
                     SubProjectId= new Guid("78fe18b7-20f7-4883-a35a-c0f2ccbfb910"),

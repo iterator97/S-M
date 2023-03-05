@@ -39,6 +39,7 @@ namespace API.Controllers
                 {
                     Email = loginDto.Email,
                     Surname = user.Surname,
+                    UserName = user.Name + " " + user.Surname,
                     Token = _tokenService.CreateToken(user),
                 };
             }
