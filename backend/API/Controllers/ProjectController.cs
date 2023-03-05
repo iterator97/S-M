@@ -36,5 +36,13 @@ namespace API.Controllers
         {
             return HandleResult(await Mediator.Send(new Edit.Command() { ProjectToEdit = ProjectToEdit }));
         }
+
+        [HttpGet("projectusers/{projectId}")]
+        public async Task<ActionResult> GetProjectUsers(string projectId)
+        {
+            return HandleResult(await Mediator.Send(new Users.Query() { ProjectId = projectId }));
+        }
+
+
     }
 }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -174,7 +174,7 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProjectAttendee",
+                name: "ProjectAttendees",
                 columns: table => new
                 {
                     AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -183,15 +183,15 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProjectAttendee", x => new { x.AppUserId, x.ProjectId });
+                    table.PrimaryKey("PK_ProjectAttendees", x => new { x.AppUserId, x.ProjectId });
                     table.ForeignKey(
-                        name: "FK_ProjectAttendee_AspNetUsers_AppUserId",
+                        name: "FK_ProjectAttendees_AspNetUsers_AppUserId",
                         column: x => x.AppUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProjectAttendee_Projects_ProjectId",
+                        name: "FK_ProjectAttendees_Projects_ProjectId",
                         column: x => x.ProjectId,
                         principalTable: "Projects",
                         principalColumn: "Id",
@@ -273,7 +273,7 @@ namespace Persistence.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     WorkTaskId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    DependencyId = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    WorkTaskDependencyId = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -326,8 +326,8 @@ namespace Persistence.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProjectAttendee_ProjectId",
-                table: "ProjectAttendee",
+                name: "IX_ProjectAttendees_ProjectId",
+                table: "ProjectAttendees",
                 column: "ProjectId");
 
             migrationBuilder.CreateIndex(
@@ -375,7 +375,7 @@ namespace Persistence.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "ProjectAttendee");
+                name: "ProjectAttendees");
 
             migrationBuilder.DropTable(
                 name: "SubTasks");

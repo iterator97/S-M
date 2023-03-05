@@ -12,8 +12,8 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230227183404_AddProjectAttendee")]
-    partial class AddProjectAttendee
+    [Migration("20230305125541_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -223,7 +223,7 @@ namespace Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("DependencyId")
+                    b.Property<string>("WorkTaskDependencyId")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("WorkTaskId")
