@@ -8,6 +8,15 @@ export const addNewWorkTaskDependency = async (workTask, dependencyId) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
+      body: JSON.stringify({
+        Id,
+        Name,
+        Description,
+        StartDate,
+        EndDate,
+        OwnerId,
+        ProjectAttendees,
+      }),
     }
   );
   let data = await response.json();

@@ -14,11 +14,11 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { useDispatch, useSelector } from "react-redux";
-import { createNewProject } from "../../../store/projects/actions/createNewProject";
 import { getProjects } from "../../../store/projects/actions/getProjects";
 import { EditableRow } from "./EditableRow";
 import { EditableCell } from "./EditableCell";
 import { ToastContainer, toast } from "react-toastify";
+import { PlusOutlined, SaveOutlined } from "@ant-design/icons";
 
 const NewProject = () => {
   const [StartDate, setStartDate] = React.useState(dayjs("2022-04-07"));
@@ -146,21 +146,23 @@ const NewProject = () => {
 
     create()
       .then((data) => {
-        toast.success("Projekty utworzony!", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+        toast.success(
+          "Projekt utworzony, możesz go zobaczyć w sekcji twoje projekty!",
+          {
+            position: "top-center",
+            autoClose: 20000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            draggable: true,
+          }
+        );
         dispatch(getProjects(localStorage.getItem("token")));
       })
       .then(() => {
-        setStartDate("0000-00-00");
-        setEndDate("0000-00-00");
         setName("");
         setDescription("");
         setDataSource([]);
@@ -224,42 +226,56 @@ const NewProject = () => {
             />
           </LocalizationProvider>
         </Item>
-        <Item>
-          <Container>
-            <div style={{ height: 400, width: "100%" }}>
-              <div>
-                <Button
-                  onClick={handleAdd}
-                  type="primary"
-                  style={{
-                    marginBottom: 16,
-                  }}
-                >
-                  Dodaj nową częśc projektu
-                </Button>
-                <Table
-                  components={components}
-                  rowClassName={() => "editable-row"}
-                  bordered
-                  dataSource={SubProjects}
-                  columns={columns}
-                />
-              </div>
-            </div>
-          </Container>
+        <Item
+          sx={{
+            display: "flex",
+            justifyContent: "flex-start",
+            margin: "0 0 0 0 ",
+            border: "1px solid red",
+            width: "100%",
+          }}
+        >
+          <Button
+            onClick={handleAdd}
+            type="primary"
+            style={{
+              marginBottom: 16,
+              width: "250px",
+            }}
+            icon={<PlusOutlined />}
+          >
+            Dodaj nową częśc projektu
+          </Button>
         </Item>
+
         <Item>
-          <Container>
+          <Table
+            components={components}
+            rowClassName={() => "editable-row"}
+            bordered
+            dataSource={SubProjects}
+            columns={columns}
+            pagination={false}
+          />
+          <Box
+            sx={{
+              paddingTop: "16px",
+              display: "flex",
+              justifyContent: "flex-end",
+            }}
+          >
             <Button
               onClick={createProject}
               type="primary"
+              icon={<SaveOutlined />}
               style={{
                 marginBottom: 16,
+                width: "250px",
               }}
             >
               Dodaj nowy projekt
             </Button>
-          </Container>
+          </Box>
         </Item>
       </Stack>
     </Box>

@@ -58,17 +58,18 @@ function EditProject() {
       title: "Name",
       dataIndex: "name",
       width: "30%",
-      editable: true,
+      editable: false,
     },
     {
       title: "Surname",
       dataIndex: "surname",
       width: "30%",
-      editable: true,
+      editable: false,
     },
     {
       title: "Akcja",
       dataIndex: "operation",
+      editable: false,
       render: (_, record) =>
         dataSource.length >= 1 ? (
           <Popconfirm
@@ -120,7 +121,6 @@ function EditProject() {
 
   useEffect(() => {
     getProject(params.id).then((data) => {
-      console.log(selectedProject);
       setSelectedProject(data[0]);
       setName(data[0].name);
       setDescription(data[0].description);
@@ -221,15 +221,23 @@ function EditProject() {
                 </Select>
               </FormControl>
               <Item>
-                <Button type="primary" onClick={handleUserAdd}>
-                  Dodaj użytkownika
-                </Button>
+                <Container
+                  sx={{
+                    width: "160px",
+                    display: "flex",
+                    justifyContent: "flex-end",
+                  }}
+                >
+                  <Button type="primary" onClick={handleUserAdd}>
+                    Dodaj użytkownika
+                  </Button>
+                </Container>
               </Item>
             </Item>
           </Item>
           <Item>
             <Container>
-              <div style={{ height: 400, width: "100%" }}>
+              <div style={{ width: "100%" }}>
                 <div>
                   <Table
                     components={components}
@@ -237,13 +245,24 @@ function EditProject() {
                     bordered
                     dataSource={dataSource}
                     columns={columns}
+                    pagination={false}
                   />
                 </div>
               </div>
             </Container>
           </Item>
           <Item>
-            <Button onClick={onProjectSave}>Zapisz zmiany</Button>
+            <Container
+              sx={{
+                width: "160px",
+                display: "flex",
+                justifyContent: "flex-end",
+              }}
+            >
+              <Button type="primary" onClick={onProjectSave}>
+                Zapisz zmiany
+              </Button>
+            </Container>
           </Item>
         </Stack>
       </Box>

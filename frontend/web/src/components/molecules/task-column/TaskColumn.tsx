@@ -26,7 +26,6 @@ const TaskColumn = (props: TaskProps) => {
   console.log(props.data);
 
   const handleChange = (value: number) => {
-    console.log(`selected ${value}`);
     changeWorkTaskStatus(props.data.id, value).then((data) => {
       if (data == 1) {
         // zmieniono
@@ -41,6 +40,9 @@ const TaskColumn = (props: TaskProps) => {
     <ListItem alignItems="flex-start" sx={{}}>
       <ListItemAvatar>
         <Avatar alt={props.data.assignWorker?.email} />
+        <Typography variant="subtitle2">
+          {props?.data?.assignWorker?.name}
+        </Typography>
         <Typography variant="subtitle2">
           {props?.data?.assignWorker?.surname}
         </Typography>

@@ -10,7 +10,7 @@ namespace Persistence
         {
             var users = new List<AppUser>
                 {
-                    new AppUser{Id= "2759ca58-5b55-4ba2-bd05-47999bdb2b21", Name = "Jan", Surname = "Jowalski", UserName = "JanKowalski", Email = "jankowalski@gmail.com"},
+                    new AppUser{Id= "2759ca58-5b55-4ba2-bd05-47999bdb2b21", Name = "Jan", Surname = "Kowalski", UserName = "JanKowalski", Email = "jankowalski@gmail.com"},
                     new AppUser{Id= "d140ae51-a6ca-450f-9edc-502e16a37523", Name = "Piotr", Surname = "Kaliski", UserName = "PiotrKaliski", Email = "piotrkaliski@gmail.com"},
                     new AppUser{Id= "88d0863e-313a-4a35-82b1-278f1700fa36", Name = "Marek", Surname = "Zielinski", UserName = "MarekZielinski", Email = "marekzielinski@gmail.com"},
                 };

@@ -33,11 +33,14 @@ namespace API.Controllers
 
             var result = await signInManager_.CheckPasswordSignInAsync(user, loginDto.Password, false);
 
+            var temp = 1;
+
             if (result.Succeeded)
             {
                 return new UserDto
                 {
                     Email = loginDto.Email,
+                    Name = user.Name,
                     Surname = user.Surname,
                     UserName = user.Name + " " + user.Surname,
                     Token = _tokenService.CreateToken(user),

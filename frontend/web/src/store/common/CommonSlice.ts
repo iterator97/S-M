@@ -27,8 +27,12 @@ const commonSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(signInAction.fulfilled, (state, { payload }) => {
+      console.log(payload);
+
       state.loading = false;
       state.email = payload.email;
+      state.name = payload.name + " ";
+
       state.surname = payload.surname;
       state.token = payload.token;
       state.signedIn = true;
