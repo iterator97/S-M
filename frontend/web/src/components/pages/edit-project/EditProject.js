@@ -25,6 +25,7 @@ import Select from "@mui/material/Select";
 import { getProject } from "../../../hooks/getProject";
 import { getParticipants } from "../../../hooks/getParticipants";
 import { saveproject } from "../../../hooks/saveProject";
+import { PlusOutlined, SaveOutlined } from "@ant-design/icons";
 
 function EditProject() {
   // Hooks
@@ -50,6 +51,13 @@ function EditProject() {
   // Functions
   const handleDelete = (key) => {
     const newData = dataSource.filter((item) => item.id !== key);
+    const removeduser = dataSource.filter((item) => item.id == key);
+
+    let newOtherUsers = otherUsers;
+
+    newOtherUsers.push(removeduser[0]);
+    setOtherUsers(newOtherUsers);
+
     setDataSource(newData);
   };
 
@@ -236,33 +244,33 @@ function EditProject() {
             </Item>
           </Item>
           <Item>
-            <Container>
-              <div style={{ width: "100%" }}>
-                <div>
-                  <Table
-                    components={components}
-                    rowClassName={() => "editable-row"}
-                    bordered
-                    dataSource={dataSource}
-                    columns={columns}
-                    pagination={false}
-                  />
-                </div>
-              </div>
-            </Container>
-          </Item>
-          <Item>
-            <Container
+            <Table
+              components={components}
+              rowClassName={() => "editable-row"}
+              bordered
+              dataSource={dataSource}
+              columns={columns}
+              pagination={false}
+            />
+            <Box
               sx={{
-                width: "160px",
+                paddingTop: "16px",
                 display: "flex",
                 justifyContent: "flex-end",
               }}
             >
-              <Button type="primary" onClick={onProjectSave}>
+              <Button
+                type="primary"
+                onClick={onProjectSave}
+                icon={<SaveOutlined />}
+                style={{
+                  marginBottom: 16,
+                  width: "250px",
+                }}
+              >
                 Zapisz zmiany
               </Button>
-            </Container>
+            </Box>
           </Item>
         </Stack>
       </Box>
